@@ -47,19 +47,17 @@ export default function Hero({ offers = [] }: HeroProps) {
             cocktails and panoramic skyline views at SKY AVENUE.
           </p>
 
-          {/* <div className="mt-8 flex flex-wrap items-center gap-4">
-            <CTAButton href={WHATSAPP_ORDER_URL} target="_blank">
-              Order Online
-            </CTAButton>
-            <CTAButton href="/contact#reservation" variant="secondary">
-              Contact Us
-            </CTAButton>
-          </div> */}
+          
 
           <div className="mt-8 flex flex-wrap items-center gap-6 text-sm text-slate-300">
             <span>⭐ 4.8 / 5 rating</span>
             <span>•</span>
             <span>Best Rooftop Restaurant in Your City</span>
+          </div>
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <CTAButton href="/menu" variant="primary">
+              View Menu
+            </CTAButton>
           </div>
 
           {/* Rotating offers inside hero */}

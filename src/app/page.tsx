@@ -447,7 +447,7 @@ export default async function HomePage() {
             <ul className="mt-5 space-y-2 text-sm text-slate-300">
               <li>• Panoramic skyline views</li>
               <li>• Seasonal chef-driven menu</li>
-              <li>• Signature cocktails & wine cellar</li>
+              <li>• Signature mocktails & wine cellar</li>
               <li>• Ideal for dates, celebrations & private events</li>
             </ul>
             <div className="mt-6 flex flex-wrap gap-3">
