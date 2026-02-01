@@ -1,18 +1,18 @@
 // lib/config.ts
 
 export const SITE_NAME = "SKY AVENUE";
-export const CITY_NAME = "Your City";
+export const CITY_NAME = "Kolkata";
 
 export const PHONE_NUMBER_DISPLAY = "+91 9831710777";
 export const PHONE_NUMBER_RAW = "+919831710777"; // used for tel: and WhatsApp
-export const RESERVATION_EMAIL = "reservations@skyavenuerestaurant.com";
+export const RESERVATION_EMAIL = "skyavenuerooftop@gmail.com";
 
 export const RESTAURANT_ADDRESS = {
-  street: "123 Skyline Avenue",
-  city: "Your City",
-  state: "Your State",
-  postalCode: "123456",
-  country: "Your Country"
+  street: "1,Circus Ave, Kalim Avenue Rooftop",
+  city: "Kolkata",
+  state: "West Bengal",
+  postalCode: "700017",
+  country: "India"
 };
 
 // Prefilled WhatsApp order link

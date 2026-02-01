@@ -36,8 +36,8 @@ export default function Footer() {
             </a>
             <br />
             Email:{" "}
-            <a href="mailto:reservations@skyavenuerestaurant.com" className="hover:text-gold">
-              reservations@skyavenuerestaurant.com
+            <a href="mailto:skyavenuerooftop@gmail.com" className="hover:text-gold">
+              skyavenuerooftop@gmail.com
             </a>
           </p>
           <div className="flex gap-4 mt-3"><Link
@@ -56,7 +56,7 @@ export default function Footer() {
           <h4 className="heading-3 text-lg">Hours</h4>
           <ul className="mt-3 space-y-1 text-sm text-slate-300">
             <li>     We are open </li>
-            <li>Mon – Sun: 4:00 PM – 4:00 AM</li>
+            <li>Everyday: 4:00 PM – 4:00 AM</li>
           </ul>
         </div>
 

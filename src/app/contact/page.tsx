@@ -57,16 +57,16 @@ export default function ContactPage() {
             </p>
             <div className="mt-4 text-sm text-slate-300">
               <p className="font-semibold">Opening Hours</p>
-              <p>Mon – Thu: 5:00 PM – 11:00 PM</p>
-              <p>Fri – Sat: 5:00 PM – 1:00 AM</p>
-              <p>Sun: 5:00 PM – 10:00 PM</p>
+              <p>Everyday 4:00 PM – 4:00 AM</p>
+              
+             
             </div>
           </div>
 
           <div className="card-surface overflow-hidden">
             <iframe
               title="SKY AVENUE location map"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3..." // replace with real Google Maps embed URL
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3685.013796452769!2d88.35742627384867!3d22.541155934124866!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a0277d5554bb7f3%3A0xc58366497aac54b1!2sSky%20Avenue%20Rooftop!5e0!3m2!1sen!2sin!4v1769936332402!5m2!1sen!2sin"
               className="h-64 w-full border-0"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
