@@ -1,4 +1,3 @@
-// components/OffersCarousel.tsx
 "use client";
 
 import { useEffect, useState } from "react";
@@ -20,20 +19,16 @@ interface OffersCarouselProps {
 
 export default function OffersCarousel({
   offers,
-  intervalMs = 2000
+  intervalMs = 2000,
 }: OffersCarouselProps) {
-  // If there are no offers, render nothing (before any hooks)
-  if (!offers || offers.length === 0) return null;
 
-  const total = offers.length;
+  const total = offers?.length || 0;
   const hasMultiple = total > 1;
 
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
 
-  const current = offers[index];
-
-  // Auto-rotation
+  // Always call hooks first, THEN handle empty case
   useEffect(() => {
     if (!hasMultiple || paused) return;
 
@@ -43,6 +38,13 @@ export default function OffersCarousel({
 
     return () => clearInterval(id);
   }, [hasMultiple, paused, intervalMs, total]);
+
+  // NOW safe to return null after hooks are declared
+  if (!offers || offers.length === 0) {
+    return null;
+  }
+
+  const current = offers[index];
 
   const goNext = () => {
     if (!hasMultiple) return;
@@ -119,7 +121,6 @@ export default function OffersCarousel({
         </motion.div>
       </AnimatePresence>
 
-      {/* Dots indicator & manual tap selection */}
       {hasMultiple && (
         <div className="mt-3 flex justify-center gap-1">
           {offers.map((offer, i) => {
