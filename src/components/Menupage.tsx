@@ -147,25 +147,55 @@
 
 // app/menu/page.tsx
 
+// import { createMetadata } from "@/src/lib/seo";
+// import MenuPageClient from "@/src/components/MenuPageClient";
+
+// export const metadata = createMetadata({
+//   title: "Menu",
+//   description:
+//     "Explore SKY AVENUE's rooftop menu: mocktails, shakes, starters, pizza, pasta, Indian, Chinese, desserts and shisha.",
+//   path: "/menu",
+//   keywords: [
+//     "Sky Avenue menu",
+//     "veg non-veg menu",
+//     "mocktails",
+//     "tandoor",
+//     "pizza",
+//     "pasta",
+//     "rooftop restaurant menu",
+//   ],
+// });
+
+// export default function MenuPage() {
+//   return <MenuPageClient offers={[]} />;
+// }
+
+
+// app/menu/page.tsx
+
 import { createMetadata } from "@/src/lib/seo";
+import { getActiveOffers } from "@/src/lib/offersFirebase";
 import MenuPageClient from "@/src/components/MenuPageClient";
 
 export const metadata = createMetadata({
   title: "Menu",
   description:
     "Explore SKY AVENUE's rooftop menu: mocktails, shakes, starters, pizza, pasta, Indian, Chinese, desserts and shisha.",
-  path: "/menu",
-  keywords: [
-    "Sky Avenue menu",
-    "veg non-veg menu",
-    "mocktails",
-    "tandoor",
-    "pizza",
-    "pasta",
-    "rooftop restaurant menu",
-  ],
+  path: "/menu"
 });
 
-export default function MenuPage() {
-  return <MenuPageClient offers={[]} />;
+export const dynamic = "force-dynamic";
+
+export default async function MenuPage() {
+  const activeOffers = await getActiveOffers();
+
+  const offersForClient = activeOffers.map((o) => ({
+    id: o.id,
+    title: o.title,
+    description: o.description,
+    badge: o.badge ?? null,
+    endsAt: o.endsAt ? o.endsAt.toISOString() : null
+  }));
+
+  return <MenuPageClient offers={offersForClient} />;
 }

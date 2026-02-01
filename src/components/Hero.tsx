@@ -1,16 +1,24 @@
+// components/Hero.tsx
 "use client";
 
 import { motion } from "framer-motion";
 import Image from "next/image";
 import CTAButton from "./CTAButton";
 import { WHATSAPP_ORDER_URL } from "@/src/lib/config";
+import OffersCarousel, { type OffersCarouselItem } from "./OffersCarousel";
 
-export default function Hero() {
+type HeroOffer = OffersCarouselItem;
+
+interface HeroProps {
+  offers?: HeroOffer[];
+}
+
+export default function Hero({ offers = [] }: HeroProps) {
   return (
     <section className="relative min-h-[80vh] overflow-hidden">
       <div className="absolute inset-0">
         <Image
-          src="/hero-rooftop.jpg" // TODO: add your hero image
+          src="/hero-rooftop.jpg"
           alt="SKY AVENUE rooftop dining overlooking the city skyline"
           fill
           priority
@@ -24,7 +32,8 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="max-w-2xl"
+          // widen the main content column so offer card can grow
+          className="w-full max-w-5xl lg:max-w-6xl"
         >
           <p className="text-sm uppercase tracking-[0.28em] text-skybrand">
             SKY AVENUE • Rooftop Restaurant
@@ -43,7 +52,7 @@ export default function Hero() {
               Order Online
             </CTAButton>
             <CTAButton href="/contact#reservation" variant="secondary">
-              Reserve a Table
+              Contact Us
             </CTAButton>
           </div> */}
 
@@ -52,6 +61,19 @@ export default function Hero() {
             <span>•</span>
             <span>Best Rooftop Restaurant in Your City</span>
           </div>
+
+          {/* Rotating offers inside hero */}
+          {offers.length > 0 && (
+            <div
+              // much wider now: nearly full hero width
+              className="mt-10 w-full max-w-5xl lg:max-w-6xl"
+            >
+              <p className="mb-6 text-xs font-semibold uppercase tracking-[0.24em] text-gold">
+                Today&apos;s Offers
+              </p>
+              <OffersCarousel offers={offers} intervalMs={2000} />
+            </div>
+          )}
         </motion.div>
       </div>
     </section>
