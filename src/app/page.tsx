@@ -537,7 +537,7 @@ export default async function HomePage() {
               </footer>
             </blockquote>
             <blockquote className="card-surface p-5 text-sm text-slate-200">
-              “Perfect for golden hour cocktails. The skyline backdrop is
+              “Perfect for golden hour mocktails. The skyline backdrop is
               unreal.”
               <footer className="mt-3 text-xs text-slate-400">
                 — Daniel M., After-work Drinks
