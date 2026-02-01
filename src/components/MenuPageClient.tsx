@@ -1,7 +1,6 @@
-// components/MenuPageClient.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import OfferCard from "./OfferCard";
 import MenuCard from "./MenuCard";
 import {
@@ -26,13 +25,40 @@ interface MenuPageClientProps {
 
 function getItemsByCategory(category: MenuCategoryId, filter: FilterId) {
   let items = menuItems.filter((item) => item.category === category);
-  if (filter === "veg") items = items.filter((i) => i.isVeg);
-  if (filter === "non-veg") items = items.filter((i) => !i.isVeg);
+
+  if (filter === "veg") {
+    items = items.filter((i) => i.isVeg);
+  }
+
+  if (filter === "non-veg") {
+    items = items.filter((i) => !i.isVeg);
+  }
+
   return items;
 }
 
-export default function MenuPageClient({ offers }: MenuPageClientProps) {
+export default function MenuPageClient({
+  offers: initialOffers
+}: MenuPageClientProps) {
   const [filter, setFilter] = useState<FilterId>("all");
+  const [offers, setOffers] = useState<OfferDisplay[]>(initialOffers);
+  const [loadingOffers, setLoadingOffers] = useState(true);
+
+  useEffect(() => {
+    async function loadOffers() {
+      try {
+        const res = await fetch("/api/offers");
+        const data = await res.json();
+        setOffers(data);
+      } catch (err) {
+        console.error("Failed to load offers", err);
+      } finally {
+        setLoadingOffers(false);
+      }
+    }
+
+    loadOffers();
+  }, []);
 
   return (
     <div className="section section-padding">
@@ -46,29 +72,45 @@ export default function MenuPageClient({ offers }: MenuPageClientProps) {
       </header>
 
       {/* CURRENT OFFERS SECTION (Dynamic from Firebase) */}
-      {offers.length > 0 && (
+      {!loadingOffers && offers.length > 0 && (
         <section className="mt-8">
-          <h2 className="heading-3 text-2xl">Current Offers</h2>
-          <p className="mt-2 text-sm text-slate-300">
-            Enjoy these limited-time rooftop offers alongside our full menu.
-          </p>
-          <div className="mt-4 grid gap-4 md:grid-cols-2">
-            {offers.map((offer) => (
-              <OfferCard
-                key={offer.id}
-                title={offer.title}
-                description={offer.description}
-                badge={offer.badge ?? undefined}
-                endsAt={offer.endsAt ?? undefined}
-              />
-            ))}
-          </div>
-        </section>
+  <h2 className="heading-3 text-2xl">Current Offers</h2>
+
+  {loadingOffers && (
+    <p className="text-sm text-slate-400 mt-2">Loading offers...</p>
+  )}
+
+  {!loadingOffers && offers.length === 0 && (
+    <p className="text-sm text-slate-400 mt-2">
+      No active offers available at the moment.
+    </p>
+  )}
+
+  {!loadingOffers && offers.length > 0 && (
+    <>
+      <p className="mt-2 text-sm text-slate-300">
+        Enjoy these limited-time rooftop offers alongside our full menu.
+      </p>
+
+      <div className="mt-4 grid gap-4 md:grid-cols-2">
+        {offers.map((offer) => (
+          <OfferCard
+            key={offer.id}
+            title={offer.title}
+            description={offer.description}
+            badge={offer.badge ?? undefined}
+            endsAt={offer.endsAt ?? undefined}
+          />
+        ))}
+      </div>
+    </>
+  )}
+</section>
+
       )}
 
       {/* FILTER + CATEGORY NAV */}
       <nav className="mt-8 flex flex-wrap items-center gap-3">
-        {/* All / Veg / Non-Veg filter (pure client-side) */}
         <div
           className="inline-flex rounded-full bg-slate-900/70 p-1 text-xs font-medium"
           aria-label="Filter menu by dietary preference"
@@ -84,6 +126,7 @@ export default function MenuPageClient({ offers }: MenuPageClientProps) {
           >
             All
           </button>
+
           <button
             type="button"
             onClick={() => setFilter("veg")}
@@ -95,6 +138,7 @@ export default function MenuPageClient({ offers }: MenuPageClientProps) {
           >
             Veg
           </button>
+
           <button
             type="button"
             onClick={() => setFilter("non-veg")}
@@ -129,15 +173,13 @@ export default function MenuPageClient({ offers }: MenuPageClientProps) {
       <div id="menu" className="mt-10 space-y-12">
         {menuCategories.map((cat) => {
           const items = getItemsByCategory(cat.id, filter);
+
           if (!items.length) return null;
 
           return (
-            <section
-              key={cat.id}
-              id={cat.id}
-              className="scroll-mt-24"
-            >
+            <section key={cat.id} id={cat.id} className="scroll-mt-24">
               <h2 className="heading-3 text-2xl">{cat.label}</h2>
+
               <div className="mt-5 grid gap-4 sm:grid-cols-2">
                 {items.map((item) => (
                   <MenuCard key={item.id} item={item} />

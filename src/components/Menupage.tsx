@@ -147,10 +147,7 @@
 
 // app/menu/page.tsx
 
-// app/menu/page.tsx
-
 import { createMetadata } from "@/src/lib/seo";
-import { getActiveOffers } from "@/src/lib/offersFirebase";
 import MenuPageClient from "@/src/components/MenuPageClient";
 
 export const metadata = createMetadata({
@@ -165,24 +162,10 @@ export const metadata = createMetadata({
     "tandoor",
     "pizza",
     "pasta",
-    "rooftop restaurant menu"
-  ]
+    "rooftop restaurant menu",
+  ],
 });
 
-// Always render dynamically so it reflects latest offers
-export const dynamic = "force-dynamic";
-
-export default async function MenuPage() {
-  const activeOffers = await getActiveOffers();
-
-  // Convert server Date objects to plain strings for the client
-  const offersForClient = activeOffers.map((o) => ({
-    id: o.id,
-    title: o.title,
-    description: o.description,
-    badge: o.badge ?? null,
-    endsAt: o.endsAt ? o.endsAt.toISOString() : null
-  }));
-
-  return <MenuPageClient offers={offersForClient} />;
+export default function MenuPage() {
+  return <MenuPageClient offers={[]} />;
 }
