@@ -85,7 +85,7 @@ export default function Footer() {
             </li>
           </ul>
           <br></br>
-          <p>Prices inclusive of all applicable taxes.</p>
+          <p>Prices exclusive of all applicable taxes.</p>
         </div>
       </div>
       <div className="border-t border-slate-800/60 py-4 text-center text-xs text-slate-500">
