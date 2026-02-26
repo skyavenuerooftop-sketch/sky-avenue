@@ -2,1472 +2,1660 @@
 
 export type MenuCategoryId =
   | "mocktails"
+  | "soft-drinks"
+  | "tea"
+  | "coffee"
   | "shakes"
-  | "tea-coffee"
-  | "soups"
-  | "starters"
-  | "sandwiches"
-  | "salads"
+  | "soups-veg"
+  | "soups-nonveg"
+  | "salad-veg"
+  | "salad-nonveg"
+  | "starters-veg"
+  | "starters-nonveg"
   | "momos"
-  | "pizza"
-  | "pasta"
-  | "burgers"
-  | "tandoor"
+  | "pizza-veg"
+  | "pizza-nonveg"
+  | "pasta-veg"
+  | "pasta-nonveg"
+  | "burgers-veg"
+  | "burgers-nonveg"
+  | "sandwich-veg"
+  | "sandwich-nonveg"
+  | "tandoori-platter-veg"
+  | "tandoori-platter-nonveg"
+  | "chinese-veg"
+  | "chinese-nonveg"
+  | "indian-veg"
+  | "indian-nonveg"
+  | "tandoor-veg"
+  | "tandoor-nonveg"
+  | "tandoor-tikkas"
   | "tandoori-bread"
-  | "main-course-chinese"
-  | "main-course-indian"
-  | "noodles-rice"
+  | "noodles-rice-veg"
+  | "noodles-rice-nonveg"
   | "desserts"
-  | "shisha";
+  | "special-item";
 
 export interface MenuItem {
   id: string;
   name: string;
-  price: number; // in INR
-  category: MenuCategoryId;
-  isVeg: boolean; // true = veg, false = non-veg
   description?: string;
-
-  // Optional flags used in UI (Hero, badges, etc.)
-  isSignature?: boolean; // Highlight as "Signature"
-  isPopular?: boolean; // Highlight as "Popular"
-  isSpicy?: boolean; // Highlight as "Spicy"
+  price: number; // INR
+  category: MenuCategoryId;
+  isVeg: boolean; // used for Veg / Non-Veg filter
+  isSignature?: boolean;
+  isPopular?: boolean;
+  isSpicy?: boolean;
 }
 
 export const menuCategories: { id: MenuCategoryId; label: string }[] = [
   { id: "mocktails", label: "Mocktails" },
+  { id: "soft-drinks", label: "Soft Drinks" },
+  { id: "tea", label: "Tea" },
+  { id: "coffee", label: "Coffee" },
   { id: "shakes", label: "Shakes" },
-  { id: "tea-coffee", label: "Tea & Coffee" },
-  { id: "soups", label: "Soups" },
-  { id: "starters", label: "Appetizers / Starters" },
-  { id: "sandwiches", label: "Sandwiches" },
-  { id: "salads", label: "Salads" },
+  { id: "soups-veg", label: "Soups (Veg)" },
+  { id: "soups-nonveg", label: "Soups (Non-Veg)" },
+  { id: "salad-veg", label: "Salad (Veg)" },
+  { id: "salad-nonveg", label: "Salad (Non-Veg)" },
+  { id: "starters-veg", label: "Starters (Veg)" },
+  { id: "starters-nonveg", label: "Starters (Non-Veg)" },
   { id: "momos", label: "Momos" },
-  { id: "pizza", label: "Pizza" },
-  { id: "pasta", label: "Pasta" },
-  { id: "burgers", label: "Burgers" },
-  { id: "tandoor", label: "Tandoor" },
+  { id: "pizza-veg", label: "Pizza (Veg)" },
+  { id: "pizza-nonveg", label: "Pizza (Non-Veg)" },
+  { id: "pasta-veg", label: "Pasta (Veg)" },
+  { id: "pasta-nonveg", label: "Pasta (Non-Veg)" },
+  { id: "burgers-veg", label: "Burgers (Veg)" },
+  { id: "burgers-nonveg", label: "Burgers (Non-Veg)" },
+  { id: "sandwich-veg", label: "Sandwich (Veg)" },
+  { id: "sandwich-nonveg", label: "Sandwich (Non-Veg)" },
+  { id: "tandoori-platter-veg", label: "Tandoori Platter (Veg)" },
+  { id: "tandoori-platter-nonveg", label: "Tandoori Platter (Non-Veg)" },
+  { id: "chinese-veg", label: "Chinese (Veg)" },
+  { id: "chinese-nonveg", label: "Chinese (Non-Veg)" },
+  { id: "indian-veg", label: "Indian (Veg)" },
+  { id: "indian-nonveg", label: "Indian (Non-Veg)" },
+  { id: "tandoor-veg", label: "Tandoor (Veg)" },
+  { id: "tandoor-nonveg", label: "Tandoor (Non-Veg)" },
+  { id: "tandoor-tikkas", label: "Tandoor Tikkas (Non-Veg)" },
   { id: "tandoori-bread", label: "Tandoori Bread" },
-  { id: "main-course-chinese", label: "Main Course – Chinese" },
-  { id: "main-course-indian", label: "Main Course – Indian" },
-  { id: "noodles-rice", label: "Noodles & Rice" },
+  { id: "noodles-rice-veg", label: "Noodles & Rice (Veg)" },
+  { id: "noodles-rice-nonveg", label: "Noodles & Rice (Non-Veg)" },
   { id: "desserts", label: "Desserts" },
-  { id: "shisha", label: "Shisha" }
+  { id: "special-item", label: "Special Item (Shisha)" }
 ];
 
 export const menuItems: MenuItem[] = [
   // Mocktails
   {
-    id: "caramel-apple-spritz",
-    name: "Caramel Apple Spritz",
-    price: 149,
-    category: "mocktails",
-    isVeg: true
-  },
-  {
-    id: "kiwi-basil-smash",
-    name: "Kiwi Basil Smash",
-    price: 189,
-    category: "mocktails",
-    isVeg: true,
-    isPopular: true
-  },
-  {
-    id: "passion-fruit-paradise",
-    name: "Passion Fruit Paradise",
+    id: "mocktail-loves-me",
+    name: "Loves Me",
+    description: "Strawberry pulp, grenadine syrup, topped up with soda",
     price: 179,
     category: "mocktails",
     isVeg: true,
     isPopular: true
   },
   {
-    id: "aspirin",
-    name: "Aspirin",
-    price: 149,
-    category: "mocktails",
-    isVeg: true
-  },
-  {
-    id: "cucumber-collins",
-    name: "Cucumber Collins",
-    price: 179,
-    category: "mocktails",
-    isVeg: true
-  },
-  {
-    id: "floral-sunrise",
-    name: "Floral Sunrise",
-    price: 179,
-    category: "mocktails",
-    isVeg: true
-  },
-  {
-    id: "purple-glacier",
-    name: "Purple Glacier",
-    price: 179,
-    category: "mocktails",
-    isVeg: true
-  },
-  {
-    id: "mojitos",
-    name: "Mojitos",
-    price: 149,
-    category: "mocktails",
-    isVeg: true,
-    isPopular: true
-  },
-  {
-    id: "sea-breeze",
-    name: "Sea Breeze",
-    price: 179,
-    category: "mocktails",
-    isVeg: true
-  },
-  {
-    id: "fresh-smashin",
-    name: "Fresh Smashin",
-    price: 169,
-    category: "mocktails",
-    isVeg: true
-  },
-  {
-    id: "coco-no-loco",
-    name: "Coco No Loco",
+    id: "mocktail-sim-bim",
+    name: "Sim-Bim",
+    description:
+      "Fresh blueberry, blackcurrant, lime sugar syrup, topped with ginger ale",
     price: 199,
     category: "mocktails",
     isVeg: true
   },
   {
-    id: "cucumber-elder-flower",
-    name: "Cucumber Elder Flower",
+    id: "mocktail-orange-pop",
+    name: "Orange Pop",
+    description:
+      "Fresh orange juice, grenadine syrup, pinch of salt, topped with soda",
+    price: 199,
+    category: "mocktails",
+    isVeg: true
+  },
+  {
+    id: "mocktail-rainbow",
+    name: "Rainbow",
+    description:
+      "Real orange juice, pineapple juice, grenadine, blue curacao syrup, topped with soda",
     price: 179,
     category: "mocktails",
+    isVeg: true
+  },
+  {
+    id: "mocktail-love-shots",
+    name: "Love Shots",
+    description: "Six juicy & acidic shot drinks",
+    price: 239,
+    category: "mocktails",
+    isVeg: true
+  },
+  {
+    id: "mocktail-cucumber-collins",
+    name: "Cucumber Collins",
+    description:
+      "Fresh cucumber chunks, cucumber syrup, lemon syrup, topped with soda",
+    price: 169,
+    category: "mocktails",
+    isVeg: true
+  },
+  {
+    id: "mocktail-passion-fruit-paradise",
+    name: "Passion Fruit Paradise",
+    description:
+      "Passion fruit syrup, orange juice, coconut water, and lime",
+    price: 169,
+    category: "mocktails",
+    isVeg: true
+  },
+  {
+    id: "mocktail-purple-glacier",
+    name: "Purple Glacier",
+    description:
+      "Fresh blueberry, lavender syrup, rosemary, thyme, topped with soda",
+    price: 179,
+    category: "mocktails",
+    isVeg: true
+  },
+  {
+    id: "mocktail-coco-do-loco",
+    name: "Coco Do Loco",
+    description:
+      "Coconut pulp, coconut cocoa, coconut water, lime juice, topped with soda",
+    price: 199,
+    category: "mocktails",
+    isVeg: true
+  },
+  {
+    id: "mocktail-kiwi-basil-smash",
+    name: "Kiwi Basil Smash",
+    description:
+      "Kiwi halves, fresh basil leaves, lemon juice, simple syrup",
+    price: 199,
+    category: "mocktails",
+    isVeg: true
+  },
+  {
+    id: "mocktail-mojito",
+    name: "Mojito",
+    description: "Classic mojito – available in flavours of your choice",
+    price: 169,
+    category: "mocktails",
+    isVeg: true
+  },
+  {
+    id: "mocktail-oww-some",
+    name: "Oww-Some",
+    description: "Watermelon juice, rose syrup lemon, topped with ginger ale",
+    price: 219,
+    category: "mocktails",
+    isVeg: true
+  },
+
+  // Soft Drinks
+  {
+    id: "soft-drinks-soft-drinks",
+    name: "Soft Drinks",
+    price: 99,
+    category: "soft-drinks",
+    isVeg: true
+  },
+
+  // Tea
+  {
+    id: "tea-adrak-elaichi",
+    name: "Adrak Elaichi Tea",
+    price: 99,
+    category: "tea",
+    isVeg: true
+  },
+  {
+    id: "tea-royal-tea",
+    name: "Royal Tea",
+    price: 99,
+    category: "tea",
+    isVeg: true
+  },
+  {
+    id: "tea-green-tea-honey",
+    name: "Green Tea with Honey",
+    price: 119,
+    category: "tea",
+    isVeg: true
+  },
+  {
+    id: "tea-lemon-ginger-masala",
+    name: "Lemon Ginger Masala Tea",
+    price: 99,
+    category: "tea",
+    isVeg: true
+  },
+
+  // Coffee
+  {
+    id: "coffee-cappuccino",
+    name: "Cappuccino",
+    price: 119,
+    category: "coffee",
+    isVeg: true
+  },
+  {
+    id: "coffee-mocha-cafe",
+    name: "Mocha Cafe",
+    price: 129,
+    category: "coffee",
+    isVeg: true
+  },
+  {
+    id: "coffee-irish",
+    name: "Irish",
+    price: 129,
+    category: "coffee",
+    isVeg: true
+  },
+  {
+    id: "coffee-hazelnut",
+    name: "Hazelnut",
+    price: 129,
+    category: "coffee",
+    isVeg: true
+  },
+  {
+    id: "coffee-black",
+    name: "Black Coffee",
+    price: 109,
+    category: "coffee",
+    isVeg: true
+  },
+  {
+    id: "coffee-latte",
+    name: "Latte",
+    price: 119,
+    category: "coffee",
     isVeg: true
   },
 
   // Shakes
   {
-    id: "strawberry-shake",
+    id: "shake-strawberry",
     name: "Strawberry Shake",
     price: 199,
     category: "shakes",
     isVeg: true
   },
   {
-    id: "mango-shake",
+    id: "shake-mango",
     name: "Mango Shake",
     price: 199,
     category: "shakes",
-    isVeg: true,
-    isPopular: true
+    isVeg: true
   },
   {
-    id: "blackcurrant-shake",
+    id: "shake-blackcurrant",
     name: "Blackcurrant Shake",
     price: 199,
     category: "shakes",
     isVeg: true
   },
   {
-    id: "horchata-shake",
+    id: "shake-horchata",
     name: "Horchata Shake",
     price: 199,
     category: "shakes",
     isVeg: true
   },
   {
-    id: "kitkat-shake",
+    id: "shake-kitkat",
     name: "KitKat Shake",
     price: 199,
     category: "shakes",
     isVeg: true
   },
   {
-    id: "pina-colada",
+    id: "shake-pina-colada",
     name: "Pina Colada",
     price: 199,
     category: "shakes",
     isVeg: true
   },
   {
-    id: "pineapple-shake",
+    id: "shake-pineapple",
     name: "Pineapple Shake",
     price: 199,
     category: "shakes",
     isVeg: true
   },
   {
-    id: "banana-shake",
+    id: "shake-banana",
     name: "Banana Shake",
     price: 199,
     category: "shakes",
     isVeg: true
   },
 
-  // Tea & Coffee
+  // Soups (Veg)
   {
-    id: "adrak-elaichi-tea",
-    name: "Adrak Elaichi Tea",
-    price: 99,
-    category: "tea-coffee",
-    isVeg: true,
-    isPopular: true
-  },
-  {
-    id: "royal-tea",
-    name: "Royal Tea",
-    price: 99,
-    category: "tea-coffee",
-    isVeg: true
-  },
-  {
-    id: "green-tea-honey-lemon-ginger",
-    name: "Green Tea with Honey Lemon Ginger",
-    price: 119,
-    category: "tea-coffee",
-    isVeg: true
-  },
-  {
-    id: "masala-tea",
-    name: "Masala Tea",
-    price: 99,
-    category: "tea-coffee",
-    isVeg: true
-  },
-  {
-    id: "cappuccino",
-    name: "Cappuccino",
-    price: 119,
-    category: "tea-coffee",
-    isVeg: true
-  },
-  {
-    id: "mocha-cafe",
-    name: "Mocha Cafe",
-    price: 129,
-    category: "tea-coffee",
-    isVeg: true
-  },
-  {
-    id: "irish-coffee",
-    name: "Irish",
-    price: 129,
-    category: "tea-coffee",
-    isVeg: true
-  },
-  {
-    id: "hazelnut-coffee",
-    name: "Hazelnut",
-    price: 129,
-    category: "tea-coffee",
-    isVeg: true
-  },
-  {
-    id: "black-coffee",
-    name: "Black Coffee",
-    price: 109,
-    category: "tea-coffee",
-    isVeg: true
-  },
-  {
-    id: "latte",
-    name: "Latte",
-    price: 119,
-    category: "tea-coffee",
-    isVeg: true
-  },
-
-  // Soups
-  {
-    id: "tomato-soup",
+    id: "soup-veg-tomato",
     name: "Tomato Soup",
-    price: 299,
-    category: "soups",
+    price: 249,
+    category: "soups-veg",
     isVeg: true
   },
   {
-    id: "broccoli-almond-soup",
+    id: "soup-veg-broccoli-almond",
     name: "Broccoli Almond Soup",
-    price: 399,
-    category: "soups",
-    isVeg: true,
-    isSignature: true
+    price: 299,
+    category: "soups-veg",
+    isVeg: true
   },
   {
-    id: "minestrone-soup",
+    id: "soup-veg-minestrone",
     name: "Minestrone Soup",
     price: 299,
-    category: "soups",
+    category: "soups-veg",
     isVeg: true
   },
   {
-    id: "manchow-soup-veg",
-    name: "Manchow Soup (Veg)",
+    id: "soup-veg-manchow",
+    name: "Manchow Soup",
     price: 299,
-    category: "soups",
-    isVeg: true,
-    isSpicy: true,
-    isPopular: true
-  },
-  {
-    id: "lemon-coriander-soup-veg",
-    name: "Lemon Coriander Soup (Veg)",
-    price: 299,
-    category: "soups",
-    isVeg: true
-  },
-  {
-    id: "sweet-corn-soup-veg",
-    name: "Sweet Corn Soup (Veg)",
-    price: 249,
-    category: "soups",
-    isVeg: true
-  },
-  {
-    id: "hot-sour-soup-veg",
-    name: "Hot & Sour Soup (Veg)",
-    price: 249,
-    category: "soups",
+    category: "soups-veg",
     isVeg: true,
     isSpicy: true
   },
   {
-    id: "mushroom-cappuccino-soup",
-    name: "Mushroom Cappuccino Soup",
-    price: 399,
-    category: "soups",
+    id: "soup-veg-lemon-coriander",
+    name: "Lemon Coriander Soup",
+    price: 299,
+    category: "soups-veg",
     isVeg: true
   },
   {
-    id: "pollo-alla-crema-soup",
+    id: "soup-veg-sweet-corn",
+    name: "Sweet Corn Soup",
+    price: 179,
+    category: "soups-veg",
+    isVeg: true
+  },
+  {
+    id: "soup-veg-hot-sour",
+    name: "Hot & Sour Soup",
+    price: 249,
+    category: "soups-veg",
+    isVeg: true,
+    isSpicy: true
+  },
+  {
+    id: "soup-veg-mushroom-cappuccino",
+    name: "Mushroom Cappuccino Soup",
+    price: 299,
+    category: "soups-veg",
+    isVeg: true
+  },
+
+  // Soups (Non-Veg)
+  {
+    id: "soup-nonveg-pollo-alla-crema",
     name: "Pollo Alla Crema Soup",
-    price: 399,
-    category: "soups",
+    price: 299,
+    category: "soups-nonveg",
     isVeg: false
   },
   {
-    id: "manchow-soup-chicken",
+    id: "soup-nonveg-manchow-chicken",
     name: "Manchow Soup (Chicken)",
     price: 399,
-    category: "soups",
+    category: "soups-nonveg",
     isVeg: false,
     isSpicy: true
   },
   {
-    id: "lemon-coriander-soup-chicken",
+    id: "soup-nonveg-lemon-coriander-chicken",
     name: "Lemon Coriander Soup (Chicken)",
-    price: 399,
-    category: "soups",
+    price: 249,
+    category: "soups-nonveg",
     isVeg: false
   },
   {
-    id: "sweet-corn-soup-chicken",
+    id: "soup-nonveg-sweet-corn-chicken",
     name: "Sweet Corn Soup (Chicken)",
-    price: 299,
-    category: "soups",
+    price: 249,
+    category: "soups-nonveg",
     isVeg: false
   },
   {
-    id: "hot-sour-soup-chicken",
+    id: "soup-nonveg-hot-sour-chicken",
     name: "Hot & Sour Soup (Chicken)",
     price: 299,
-    category: "soups",
+    category: "soups-nonveg",
     isVeg: false,
     isSpicy: true
-  },
-  {
-    id: "sicilian-chicken-soup",
-    name: "Sicilian Chicken Soup",
-    price: 399,
-    category: "soups",
-    isVeg: false,
-    isSignature: true
   },
 
-  // Appetizers / Starters
+  // Salad (Veg)
   {
-    id: "jalapeno-poppers",
-    name: "Jalapeño Poppers",
-    price: 349,
-    category: "starters",
-    isVeg: true,
-    isPopular: true
-  },
-  {
-    id: "stuffed-baked-mushrooms",
-    name: "Stuffed Baked Mushrooms",
-    price: 349,
-    category: "starters",
-    isVeg: true
-  },
-  {
-    id: "mexican-cheese-roll",
-    name: "Mexican Cheese Roll",
-    price: 299,
-    category: "starters",
-    isVeg: true
-  },
-  {
-    id: "nachos",
-    name: "Nachos",
-    price: 249,
-    category: "starters",
-    isVeg: true
-  },
-  {
-    id: "french-fries",
-    name: "French Fries",
-    price: 199,
-    category: "starters",
-    isVeg: true
-  },
-  {
-    id: "peri-peri-french-fries",
-    name: "Peri Peri French Fries",
-    price: 199,
-    category: "starters",
-    isVeg: true
-  },
-  {
-    id: "chilli-paneer-dry",
-    name: "Chilli Paneer Dry",
-    price: 299,
-    category: "starters",
-    isVeg: true,
-    isSpicy: true,
-    isPopular: true
-  },
-  {
-    id: "chilli-baby-corn",
-    name: "Chilli Baby Corn",
-    price: 299,
-    category: "starters",
-    isVeg: true
-  },
-  {
-    id: "chilli-potato",
-    name: "Chilli Potato",
-    price: 299,
-    category: "starters",
-    isVeg: true
-  },
-  {
-    id: "paneer-65",
-    name: "Paneer 65",
-    price: 299,
-    category: "starters",
-    isVeg: true,
-    isSpicy: true
-  },
-  {
-    id: "shanghai-paneer",
-    name: "Shanghai Paneer",
-    price: 299,
-    category: "starters",
-    isVeg: true
-  },
-  {
-    id: "chilli-mushroom",
-    name: "Chilli Mushroom",
-    price: 349,
-    category: "starters",
-    isVeg: true
-  },
-  {
-    id: "salt-pepper-corn",
-    name: "Salt & Pepper Corn",
-    price: 349,
-    category: "starters",
-    isVeg: true
-  },
-  {
-    id: "sauteed-mushrooms",
-    name: "Sautéed Mushrooms",
-    price: 399,
-    category: "starters",
-    isVeg: true
-  },
-  {
-    id: "panko-crusted-chicken",
-    name: "Panko Crusted Chicken",
-    price: 499,
-    category: "starters",
-    isVeg: false
-  },
-  {
-    id: "panko-crusted-fish",
-    name: "Panko Crusted Fish",
-    price: 499,
-    category: "starters",
-    isVeg: false
-  },
-  {
-    id: "fish-and-chips",
-    name: "Fish & Chips",
-    price: 499,
-    category: "starters",
-    isVeg: false
-  },
-  {
-    id: "corn-crusted-chicken-supreme",
-    name: "Corn Crusted Chicken Supreme",
-    price: 399,
-    category: "starters",
-    isVeg: false
-  },
-  {
-    id: "butter-garlic-prawns",
-    name: "Butter Garlic Prawns",
-    price: 499,
-    category: "starters",
-    isVeg: false
-  },
-  {
-    id: "fish-fingers",
-    name: "Fish Fingers",
-    price: 499,
-    category: "starters",
-    isVeg: false
-  },
-  {
-    id: "fish-fry",
-    name: "Fish Fry",
-    price: 499,
-    category: "starters",
-    isVeg: false
-  },
-  {
-    id: "butter-fried-prawns",
-    name: "Butter Fried Prawns",
-    price: 499,
-    category: "starters",
-    isVeg: false
-  },
-  {
-    id: "bbq-chicken-wings",
-    name: "BBQ Chicken Wings",
-    price: 399,
-    category: "starters",
-    isVeg: false,
-    isPopular: true
-  },
-  {
-    id: "chilli-chicken-dry",
-    name: "Chilli Chicken Dry",
-    price: 449,
-    category: "starters",
-    isVeg: false,
-    isSpicy: true
-  },
-  {
-    id: "chilli-garlic-chicken-dry",
-    name: "Chilli Garlic Chicken Dry",
-    price: 449,
-    category: "starters",
-    isVeg: false,
-    isSpicy: true
-  },
-  {
-    id: "paneer-crispy-fried-prawns-dry",
-    name: "Paneer Crispy Fried Prawns(Dry)",
-    price: 499,
-    category: "starters",
-    isVeg: false
-  },
-  {
-    id: "grilled-chicken",
-    name: "Grilled Chicken",
-    price: 549,
-    category: "starters",
-    isVeg: false
-  },
-  {
-    id: "grilled-fish",
-    name: "Grilled Fish",
-    price: 599,
-    category: "starters",
-    isVeg: false
-  },
-  {
-    id: "chicken-popcorn",
-    name: "Chicken Popcorn",
-    price: 399,
-    category: "starters",
-    isVeg: false
-  },
-  {
-    id: "drums-of-heaven",
-    name: "Drums of Heaven",
-    price: 399,
-    category: "starters",
-    isVeg: false
-  },
-  {
-    id: "chicken-lollipop",
-    name: "Chicken Lollipop",
-    price: 399,
-    category: "starters",
-    isVeg: false,
-    isPopular: true
-  },
-  {
-    id: "rosemary-chicken-wings",
-    name: "Rosemary Chicken Wings",
-    price: 399,
-    category: "starters",
-    isVeg: false
-  },
-  {
-    id: "kung-pao-chicken",
-    name: "Kung Pao Chicken",
-    price: 449,
-    category: "starters",
-    isVeg: false,
-    isSpicy: true
-  },
-  {
-    id: "nandos-chicken-wings",
-    name: "Nando's Chicken Wings",
-    price: 449,
-    category: "starters",
-    isVeg: false
-  },
-  {
-    id: "nandos-prawns",
-    name: "Nando's Prawns",
-    price: 599,
-    category: "starters",
-    isVeg: false
-  },
-  {
-    id: "cilantro-fish",
-    name: "Cilantro Fish",
-    price: 499,
-    category: "starters",
-    isVeg: false
-  },
-  {
-    id: "butter-garlic-prawns-classic",
-    name: "Butter Garlic Prawns (Classic)",
-    price: 499,
-    category: "starters",
-    isVeg: false,
-    isSignature: true
-  },
-  {
-    id: "larb-mai-kai",
-    name: "Larb Mai Kai",
-    price: 499,
-    category: "starters",
-    isVeg: false
-  },
-  {
-    id: "goan-rava-fried-fish",
-    name: "Goan Rava Fried Fish",
-    price: 599,
-    category: "starters",
-    isVeg: false
-  },
-  {
-    id: "chicken-meatballs",
-    name: "Chicken Meatballs",
-    price: 449,
-    category: "starters",
-    isVeg: false
-  },
-  {
-    id: "chicken-wontons",
-    name: "Chicken Wontons",
-    price: 449,
-    category: "starters",
-    isVeg: false
-  },
-  {
-    id: "prawn-wontons",
-    name: "Prawn Wontons",
-    price: 549,
-    category: "starters",
-    isVeg: false
-  },
-  {
-    id: "cordon-bleu-chicken-rolls",
-    name: "Cordon Bleu Chicken Rolls",
-    price: 549,
-    category: "starters",
-    isVeg: false
-  },
-  {
-    id: "chicken-cheese-pesto",
-    name: "Chicken & Cheese Pesto",
-    price: 499,
-    category: "starters",
-    isVeg: false
-  },
-  {
-    id: "schezwan-chicken-dry",
-    name: "Schezwan Chicken Dry",
-    price: 499,
-    category: "starters",
-    isVeg: false,
-    isSpicy: true
-  },
-  {
-    id: "stir-fry-chicken-vegetables",
-    name: "Stir Fry Chicken with Vegetables",
-    price: 499,
-    category: "starters",
-    isVeg: false
-  },
-  {
-    id: "chicken-wrapped-cream-cheese",
-    name: "Chicken Wrapped Cream Cheese",
-    price: 499,
-    category: "starters",
-    isVeg: false
-  },
-  {
-    id: "cheesy-baked-butter-fried-shrimp",
-    name: "Cheesy Baked Butter Fried Shrimp",
-    price: 549,
-    category: "starters",
-    isVeg: false
-  },
-
-  // Sandwiches
-  {
-    id: "veg-mayo-sandwich",
-    name: "Veg Mayo Sandwich",
-    price: 199,
-    category: "sandwiches",
-    isVeg: true
-  },
-  {
-    id: "bombay-veg-dal-sew",
-    name: "Bombay Veg Dal Sew",
-    price: 220,
-    category: "sandwiches",
-    isVeg: true
-  },
-  {
-    id: "corn-cheese-sandwich",
-    name: "Corn & Cheese Sandwich",
-    price: 311,
-    category: "sandwiches",
-    isVeg: true
-  },
-  {
-    id: "paneer-tikka-sandwich",
-    name: "Paneer Tikka Sandwich",
-    price: 298,
-    category: "sandwiches",
-    isVeg: true
-  },
-  {
-    id: "grilled-chicken-sandwich",
-    name: "Grilled Chicken Sandwich",
-    price: 324,
-    category: "sandwiches",
-    isVeg: false
-  },
-  {
-    id: "bbq-chicken-sandwich",
-    name: "BBQ Chicken Sandwich",
-    price: 324,
-    category: "sandwiches",
-    isVeg: false
-  },
-  {
-    id: "tandoori-chicken-sandwich",
-    name: "Tandoori Chicken Sandwich",
-    price: 324,
-    category: "sandwiches",
-    isVeg: false
-  },
-  {
-    id: "mayo-egg-chicken-sandwich",
-    name: "Mayo Egg Chicken Sandwich",
-    price: 350,
-    category: "sandwiches",
-    isVeg: false
-  },
-
-  // Salads
-  {
-    id: "green-salad",
+    id: "salad-veg-green",
     name: "Green Salad",
     price: 239,
-    category: "salads",
+    category: "salad-veg",
     isVeg: true
   },
   {
-    id: "watermelon-feta-salad",
+    id: "salad-veg-watermelon-feta",
     name: "Watermelon Feta Salad",
-    price: 399,
-    category: "salads",
+    price: 349,
+    category: "salad-veg",
+    isVeg: true
+  },
+  {
+    id: "salad-veg-caprese",
+    name: "Caprese Salad",
+    price: 299,
+    category: "salad-veg",
+    isVeg: true
+  },
+  {
+    id: "salad-veg-caesar",
+    name: "Caesar Salad",
+    price: 299,
+    category: "salad-veg",
+    isVeg: true
+  },
+  {
+    id: "salad-veg-walnut",
+    name: "Walnut Salad",
+    price: 249,
+    category: "salad-veg",
+    isVeg: true
+  },
+
+  // Salad (Non-Veg)
+  {
+    id: "salad-nonveg-chicken-avocado",
+    name: "Chicken Avocado Salad",
+    price: 299,
+    category: "salad-nonveg",
+    isVeg: false
+  },
+  {
+    id: "salad-nonveg-chicken-tandoori",
+    name: "Chicken Tandoori Salad",
+    price: 299,
+    category: "salad-nonveg",
+    isVeg: false
+  },
+
+  // Starters (Veg)
+  {
+    id: "starters-veg-stuffed-baked-mushrooms",
+    name: "Stuffed Baked Mushrooms",
+    description: "Mushrooms stuffed with cheese & herbs, baked",
+    price: 349,
+    category: "starters-veg",
+    isVeg: true
+  },
+  {
+    id: "starters-veg-mexican-cheese-roll",
+    name: "Mexican Cheese Roll",
+    description: "Mexican spiced cheese rolls, panko crumbed & deep fried",
+    price: 299,
+    category: "starters-veg",
+    isVeg: true
+  },
+  {
+    id: "starters-veg-nachos",
+    name: "Nachos",
+    description:
+      "Nacho chips served with cheese dip, salsa & sour cream",
+    price: 249,
+    category: "starters-veg",
+    isVeg: true
+  },
+  {
+    id: "starters-veg-french-fries",
+    name: "French Fries",
+    description: "Classic deep-fried finger potatoes",
+    price: 199,
+    category: "starters-veg",
+    isVeg: true
+  },
+  {
+    id: "starters-veg-peri-peri-fries",
+    name: "Peri Peri French Fries",
+    description: "Deep-fried finger potatoes tossed with peri peri spice",
+    price: 199,
+    category: "starters-veg",
     isVeg: true,
+    isSpicy: true
+  },
+  {
+    id: "starters-veg-chilli-paneer-dry",
+    name: "Chilli Paneer Dry (8 Pcs)",
+    description: "Cottage cheese tossed with chilli & soya sauce",
+    price: 299,
+    category: "starters-veg",
+    isVeg: true,
+    isSpicy: true
+  },
+  {
+    id: "starters-veg-chilli-baby-corn",
+    name: "Chilli Baby Corn",
+    description: "Crispy baby corn tossed in spicy chilli glaze",
+    price: 299,
+    category: "starters-veg",
+    isVeg: true,
+    isSpicy: true
+  },
+  {
+    id: "starters-veg-chilli-potato",
+    name: "Chilli Potato",
+    description: "Crispy finger potatoes tossed in chilli tomato sauce",
+    price: 299,
+    category: "starters-veg",
+    isVeg: true
+  },
+  {
+    id: "starters-veg-paneer-65",
+    name: "Paneer 65 (8 Pcs)",
+    description: "Cottage cheese tossed with curry leaves, mustard & chilli",
+    price: 299,
+    category: "starters-veg",
+    isVeg: true,
+    isSpicy: true
+  },
+  {
+    id: "starters-veg-shanghai-paneer",
+    name: "Shanghai Paneer",
+    description: "Cottage cheese tossed in Shanghai-style hot sauce",
+    price: 299,
+    category: "starters-veg",
+    isVeg: true,
+    isSpicy: true
+  },
+  {
+    id: "starters-veg-chilli-mushroom",
+    name: "Chilli Mushroom",
+    description: "Crispy mushroom tossed in bold chilli sauce",
+    price: 349,
+    category: "starters-veg",
+    isVeg: true,
+    isSpicy: true
+  },
+  {
+    id: "starters-veg-salt-pepper-corn",
+    name: "Salt & Pepper Corn",
+    description: "Crispy corn tossed in salt and cracked pepper",
+    price: 349,
+    category: "starters-veg",
+    isVeg: true
+  },
+  {
+    id: "starters-veg-sauteed-mushrooms",
+    name: "Sautéed Mushrooms",
+    price: 399,
+    category: "starters-veg",
+    isVeg: true
+  },
+  {
+    id: "starters-veg-cheese-chilli-toast",
+    name: "Cheese chilli toast",
+    price: 259,
+    category: "starters-veg",
+    isVeg: true
+  },
+  {
+    id: "starters-veg-cheese-garlic-bread",
+    name: "Cheese garlic bread",
+    price: 279,
+    category: "starters-veg",
+    isVeg: true
+  },
+
+  // Starters (Non-Veg)
+  {
+    id: "starters-nonveg-panko-crusted-chicken",
+    name: "Panko Crusted Chicken (6 Pcs)",
+    description:
+      "Cajun-marinated boneless chicken, panko coated & deep fried",
+    price: 349,
+    category: "starters-nonveg",
+    isVeg: false
+  },
+  {
+    id: "starters-nonveg-panko-crusted-fish",
+    name: "Panko Crusted Fish (6 Pcs)",
+    description:
+      "Cajun-marinated fish, panko coated & deep fried",
+    price: 399,
+    category: "starters-nonveg",
+    isVeg: false
+  },
+  {
+    id: "starters-nonveg-fish-chips",
+    name: "Fish & Chips (2 Pcs)",
+    description: "Battered fried fish served with French fries & hot dip",
+    price: 499,
+    category: "starters-nonveg",
+    isVeg: false
+  },
+  {
+    id: "starters-nonveg-corn-crusted-chicken-supreme",
+    name: "Corn Crusted Chicken Supreme (6 Pcs)",
+    description:
+      "Boneless chicken coated with cornflakes, deep fried & served sizzling",
+    price: 399,
+    category: "starters-nonveg",
+    isVeg: false
+  },
+  {
+    id: "starters-nonveg-garlic-prawns",
+    name: "Garlic Prawns (6 Pcs)",
+    description: "Prawns tossed in butter, garlic & herbs",
+    price: 499,
+    category: "starters-nonveg",
+    isVeg: false
+  },
+  {
+    id: "starters-nonveg-fish-fingers",
+    name: "Fish Fingers",
+    price: 499,
+    category: "starters-nonveg",
+    isVeg: false
+  },
+  {
+    id: "starters-nonveg-fried-prawns",
+    name: "Fried Prawns",
+    description: "Crispy fried prawns, golden and light",
+    price: 499,
+    category: "starters-nonveg",
+    isVeg: false
+  },
+  {
+    id: "starters-nonveg-paneer-crispy-dry",
+    name: "Paneer Crispy (Dry)",
+    price: 499,
+    category: "starters-nonveg",
+    isVeg: false // category says non-veg
+  },
+  {
+    id: "starters-nonveg-bbq-chicken-wings",
+    name: "BBQ Chicken Wings",
+    price: 399,
+    category: "starters-nonveg",
+    isVeg: false
+  },
+  {
+    id: "starters-nonveg-chilli-chicken-dry",
+    name: "Chilli Chicken Dry",
+    price: 349,
+    category: "starters-nonveg",
+    isVeg: false,
+    isSpicy: true
+  },
+  {
+    id: "starters-nonveg-chilli-garlic-chicken-dry",
+    name: "Chilli Garlic Chicken Dry",
+    price: 449,
+    category: "starters-nonveg",
+    isVeg: false,
+    isSpicy: true
+  },
+  {
+    id: "starters-nonveg-grilled-chicken",
+    name: "Grilled Chicken",
+    price: 549,
+    category: "starters-nonveg",
+    isVeg: false
+  },
+  {
+    id: "starters-nonveg-grilled-fish",
+    name: "Grilled Fish",
+    price: 599,
+    category: "starters-nonveg",
+    isVeg: false
+  },
+  {
+    id: "starters-nonveg-chicken-popcorn",
+    name: "Chicken Popcorn",
+    price: 399,
+    category: "starters-nonveg",
+    isVeg: false
+  },
+  {
+    id: "starters-nonveg-drums-of-heaven",
+    name: "Drums of Heaven",
+    price: 399,
+    category: "starters-nonveg",
+    isVeg: false
+  },
+  {
+    id: "starters-nonveg-chicken-lollipop",
+    name: "Chicken Lollipop",
+    price: 349,
+    category: "starters-nonveg",
+    isVeg: false,
     isPopular: true
   },
   {
-    id: "caprese-salad",
-    name: "Caprese Salad",
+    id: "starters-nonveg-rosemary-chicken-wings",
+    name: "Rosemary Chicken Wings",
     price: 399,
-    category: "salads",
-    isVeg: true
-  },
-  {
-    id: "caesar-salad",
-    name: "Caesar Salad",
-    price: 299,
-    category: "salads",
-    isVeg: true
-  },
-  {
-    id: "walnut-salad",
-    name: "Walnut Salad",
-    price: 249,
-    category: "salads",
-    isVeg: true
-  },
-  {
-    id: "chicken-avocado-salad",
-    name: "Chicken Avocado Salad",
-    price: 299,
-    category: "salads",
+    category: "starters-nonveg",
     isVeg: false
   },
   {
-    id: "chicken-tandoori-salad",
-    name: "Chicken Tandoori Salad",
-    price: 299,
-    category: "salads",
+    id: "starters-nonveg-kung-pao-chicken",
+    name: "Kung Pao Chicken",
+    price: 449,
+    category: "starters-nonveg",
+    isVeg: false,
+    isSpicy: true
+  },
+  {
+    id: "starters-nonveg-butter-garlic-prawns-classic",
+    name: "Butter Garlic Prawns (Classic)",
+    price: 499,
+    category: "starters-nonveg",
     isVeg: false
+  },
+  {
+    id: "starters-nonveg-chicken-wontons",
+    name: "Chicken Wontons",
+    price: 449,
+    category: "starters-nonveg",
+    isVeg: false
+  },
+  {
+    id: "starters-nonveg-chicken-cheese-pesto",
+    name: "Chicken & Cheese Pesto",
+    price: 459,
+    category: "starters-nonveg",
+    isVeg: false
+  },
+  {
+    id: "starters-nonveg-schezwan-chicken-dry",
+    name: "Schezwan Chicken Dry",
+    price: 499,
+    category: "starters-nonveg",
+    isVeg: false,
+    isSpicy: true
   },
 
   // Momos
   {
-    id: "veg-momos-6pcs",
+    id: "momos-veg",
     name: "Veg Momo (6 pcs)",
     price: 249,
     category: "momos",
     isVeg: true
   },
   {
-    id: "non-veg-momos-6pcs",
+    id: "momos-nonveg",
     name: "Non-Veg Momo (6 pcs)",
     price: 299,
     category: "momos",
     isVeg: false
   },
 
-  // Pizza
+  // Pizza (Veg)
   {
-    id: "margherita-pizza",
-    name: "Margherita (Cheese & Cherry Tomato)",
+    id: "pizza-veg-margherita",
+    name: "Margherita",
+    description: "Cheese & cherry tomato",
     price: 299,
-    category: "pizza",
+    category: "pizza-veg",
     isVeg: true,
     isPopular: true
   },
   {
-    id: "funghi-pizza",
-    name: "Funghi Pizza (Mushroom & Cheese)",
+    id: "pizza-veg-funghi",
+    name: "Funghi Pizza",
+    description: "Mushroom & cheese",
     price: 449,
-    category: "pizza",
+    category: "pizza-veg",
     isVeg: true
   },
   {
-    id: "four-cheese-pizza",
+    id: "pizza-veg-four-cheese",
     name: "Four Cheese Pizza",
     price: 449,
-    category: "pizza",
+    category: "pizza-veg",
     isVeg: true
   },
   {
-    id: "mixed-veg-pizza",
+    id: "pizza-veg-mixed-veg",
     name: "Mixed Veg Pizza",
     price: 399,
-    category: "pizza",
+    category: "pizza-veg",
     isVeg: true
   },
+
+  // Pizza (Non-Veg)
   {
-    id: "roasted-chicken-pizza",
+    id: "pizza-nonveg-roasted-chicken",
     name: "Roasted Chicken Pizza",
     price: 499,
-    category: "pizza",
+    category: "pizza-nonveg",
     isVeg: false
   },
   {
-    id: "peri-peri-chicken-pizza",
-    name: "Peri Peri Chicken Pizza",
+    id: "pizza-nonveg-peri-peri",
+    name: "Peri Peri Pizza",
+    description: "Peri Peri Chicken & cheese",
     price: 399,
-    category: "pizza",
+    category: "pizza-nonveg",
     isVeg: false,
     isSpicy: true
   },
   {
-    id: "tandoori-chicken-pizza",
+    id: "pizza-nonveg-tandoori-chicken",
     name: "Tandoori Chicken Pizza",
     price: 399,
-    category: "pizza",
+    category: "pizza-nonveg",
     isVeg: false
   },
   {
-    id: "mutton-keema-pizza",
+    id: "pizza-nonveg-mutton-keema",
     name: "Mutton Keema Pizza",
     price: 499,
-    category: "pizza",
+    category: "pizza-nonveg",
     isVeg: false
   },
 
-  // Pasta
+  // Pasta (Veg)
   {
-    id: "veg-alfredo",
+    id: "pasta-veg-alfredo",
     name: "Veg Alfredo",
     price: 249,
-    category: "pasta",
+    category: "pasta-veg",
     isVeg: true
   },
   {
-    id: "veg-pesto",
+    id: "pasta-veg-pesto",
     name: "Veg Pesto",
     price: 249,
-    category: "pasta",
+    category: "pasta-veg",
     isVeg: true
   },
   {
-    id: "tomato-basil-pasta",
+    id: "pasta-veg-tomato-basil",
     name: "Tomato Basil",
     price: 249,
-    category: "pasta",
+    category: "pasta-veg",
     isVeg: true
   },
   {
-    id: "mix-veg-pasta",
+    id: "pasta-veg-mix-veg",
     name: "Mix Veg Pasta",
     price: 249,
-    category: "pasta",
+    category: "pasta-veg",
     isVeg: true
   },
+
+  // Pasta (Non-Veg)
   {
-    id: "chicken-alfredo",
+    id: "pasta-nonveg-chicken-alfredo",
     name: "Chicken Alfredo",
     price: 399,
-    category: "pasta",
+    category: "pasta-nonveg",
     isVeg: false,
     isPopular: true
   },
   {
-    id: "chicken-pesto",
+    id: "pasta-nonveg-chicken-pesto",
     name: "Chicken Pesto",
     price: 399,
-    category: "pasta",
+    category: "pasta-nonveg",
     isVeg: false
   },
   {
-    id: "chicken-arrabbiata",
+    id: "pasta-nonveg-chicken-arrabbiata",
     name: "Chicken Arrabbiata",
     price: 349,
-    category: "pasta",
+    category: "pasta-nonveg",
     isVeg: false,
     isSpicy: true
   },
   {
-    id: "mix-sauce-chicken",
+    id: "pasta-nonveg-mix-sauce-chicken",
     name: "Mix Sauce & Chicken",
     price: 399,
-    category: "pasta",
+    category: "pasta-nonveg",
     isVeg: false
   },
 
-  // Burgers
+  // Burgers (Veg)
   {
-    id: "crispy-burger",
+    id: "burgers-veg-crispy",
     name: "Crispy Burger",
     price: 199,
-    category: "burgers",
+    category: "burgers-veg",
     isVeg: true
   },
   {
-    id: "paneer-cheese-burger",
+    id: "burgers-veg-paneer-cheese",
     name: "Paneer Cheese Burger",
     price: 299,
-    category: "burgers",
+    category: "burgers-veg",
     isVeg: true
   },
   {
-    id: "tandoori-paneer-burger",
+    id: "burgers-veg-tandoori-paneer",
     name: "Tandoori Paneer Burger",
     price: 299,
-    category: "burgers",
+    category: "burgers-veg",
     isVeg: true
   },
   {
-    id: "veg-cheese-burger",
+    id: "burgers-veg-veg-cheese",
     name: "Veg & Cheese Burger",
     price: 249,
-    category: "burgers",
+    category: "burgers-veg",
     isVeg: true
   },
+
+  // Burgers (Non-Veg)
   {
-    id: "roasted-chicken-burger",
+    id: "burgers-nonveg-roasted-chicken",
     name: "Roasted Chicken Burger",
     price: 299,
-    category: "burgers",
+    category: "burgers-nonveg",
     isVeg: false
   },
   {
-    id: "keema-tikka-burger",
+    id: "burgers-nonveg-keema-tikka",
     name: "Keema Tikka Burger",
     price: 349,
-    category: "burgers",
+    category: "burgers-nonveg",
     isVeg: false
   },
   {
-    id: "tandoori-chicken-burger",
+    id: "burgers-nonveg-tandoori-chicken",
     name: "Tandoori Chicken Burger",
     price: 349,
-    category: "burgers",
+    category: "burgers-nonveg",
     isVeg: false
   },
   {
-    id: "mutton-keema-tikka-burger",
+    id: "burgers-nonveg-mutton-keema-tikka",
     name: "Mutton Keema Tikka Burger",
     price: 449,
-    category: "burgers",
+    category: "burgers-nonveg",
     isVeg: false
   },
 
-  // Tandoor
+  // Sandwich (Veg)
   {
-    id: "tandoori-stuffed-potato",
-    name: "Tandoori Stuffed Potato",
+    id: "sandwich-veg-veg-mayo",
+    name: "Veg Mayo Sandwich",
     price: 199,
-    category: "tandoor",
+    category: "sandwich-veg",
     isVeg: true
   },
   {
-    id: "achari-paneer-tikka",
-    name: "Achari Paneer Tikka",
-    price: 299,
-    category: "tandoor",
+    id: "sandwich-veg-bombay-veg-dal-sew",
+    name: "Bombay Veg Dal Sew",
+    price: 220,
+    category: "sandwich-veg",
     isVeg: true
   },
   {
-    id: "afghani-paneer-tikka",
-    name: "Afghani Paneer Tikka",
-    price: 299,
-    category: "tandoor",
+    id: "sandwich-veg-corn-cheese",
+    name: "Corn & Cheese Sandwich",
+    price: 311,
+    category: "sandwich-veg",
     isVeg: true
   },
   {
-    id: "malai-broccoli",
-    name: "Malai Broccoli",
-    price: 349,
-    category: "tandoor",
+    id: "sandwich-veg-paneer-tikka",
+    name: "Paneer Tikka Sandwich",
+    price: 298,
+    category: "sandwich-veg",
     isVeg: true
   },
+
+  // Sandwich (Non-Veg)
   {
-    id: "mushroom-kalemiri",
-    name: "Mushroom Kalemiri",
-    price: 349,
-    category: "tandoor",
-    isVeg: true
-  },
-  {
-    id: "stuffed-paneer",
-    name: "Stuffed Paneer",
-    price: 349,
-    category: "tandoor",
-    isVeg: true
-  },
-  {
-    id: "tandoori-chicken-half",
-    name: "Tandoori Chicken (Half)",
-    price: 399,
-    category: "tandoor",
+    id: "sandwich-nonveg-grilled-chicken",
+    name: "Grilled Chicken Sandwich",
+    price: 324,
+    category: "sandwich-nonveg",
     isVeg: false
   },
   {
-    id: "tandoori-chicken-full",
-    name: "Tandoori Chicken (Full)",
-    price: 699,
-    category: "tandoor",
+    id: "sandwich-nonveg-bbq-chicken",
+    name: "BBQ Chicken Sandwich",
+    price: 324,
+    category: "sandwich-nonveg",
+    isVeg: false
+  },
+  {
+    id: "sandwich-nonveg-tandoori-chicken",
+    name: "Tandoori Chicken Sandwich",
+    price: 324,
+    category: "sandwich-nonveg",
+    isVeg: false
+  },
+  {
+    id: "sandwich-nonveg-mayo-egg-chicken",
+    name: "Mayo Egg Chicken Sandwich",
+    price: 350,
+    category: "sandwich-nonveg",
+    isVeg: false
+  },
+
+  // Tandoori Platter (Non-Veg)
+  {
+    id: "tandoori-platter-nonveg",
+    name: "Non-Veg Platter",
+    description:
+      "Chicken Tikka - 3 pcs, Chicken Malai Tikka - 3 pcs, Tangdi Kabab - 2 pcs, Kasundi Fish Tikka - 3 pcs, Tandoori Prawns - 3 pcs, Mutton Seek Kabab - 1 pcs",
+    price: 1099,
+    category: "tandoori-platter-nonveg",
+    isVeg: false,
+    isSignature: true
+  },
+
+  // Tandoori Platter (Veg)
+  {
+    id: "tandoori-platter-veg",
+    name: "Veg Platter",
+    description:
+      "Paneer Tikka - 3 pcs, Pudina Paneer Tikka - 3 pcs, Malai Broccoli - 3 pcs, Bharwan Aloo - 3 pcs, Veg Seekh Kabab - 2 pcs",
+    price: 899,
+    category: "tandoori-platter-veg",
+    isVeg: true,
+    isSignature: true
+  },
+
+  // Chinese (Veg)
+  {
+    id: "chinese-veg-chilli-paneer-gravy",
+    name: "Chilli Paneer Gravy",
+    price: 249,
+    category: "chinese-veg",
+    isVeg: true,
+    isSpicy: true
+  },
+  {
+    id: "chinese-veg-sweet-sour-paneer",
+    name: "Sweet & Sour Paneer",
+    price: 249,
+    category: "chinese-veg",
+    isVeg: true
+  },
+  {
+    id: "chinese-veg-veg-hot-garlic-paneer",
+    name: "Veg Hot Garlic with Paneer",
+    price: 249,
+    category: "chinese-veg",
+    isVeg: true,
+    isSpicy: true
+  },
+  {
+    id: "chinese-veg-paneer-schezwan",
+    name: "Paneer with Schezwan",
+    price: 249,
+    category: "chinese-veg",
+    isVeg: true,
+    isSpicy: true
+  },
+  {
+    id: "chinese-veg-chilli-garlic-paneer",
+    name: "Chilli Garlic Paneer",
+    price: 249,
+    category: "chinese-veg",
+    isVeg: true,
+    isSpicy: true
+  },
+
+  // Chinese (Non-Veg)
+  {
+    id: "chinese-nonveg-chicken-hot-pot",
+    name: "Chicken Hot Pot",
+    price: 299,
+    category: "chinese-nonveg",
+    isVeg: false
+  },
+  {
+    id: "chinese-nonveg-schezwan-chicken-hot-pot",
+    name: "Schezwan Chicken Hot Pot",
+    price: 349,
+    category: "chinese-nonveg",
+    isVeg: false,
+    isSpicy: true
+  },
+  {
+    id: "chinese-nonveg-chicken-hot-garlic",
+    name: "Chicken Hot Garlic",
+    price: 399,
+    category: "chinese-nonveg",
+    isVeg: false,
+    isSpicy: true
+  },
+  {
+    id: "chinese-nonveg-sweet-sour-chicken",
+    name: "Sweet & Sour Chicken",
+    price: 399,
+    category: "chinese-nonveg",
+    isVeg: false
+  },
+  {
+    id: "chinese-nonveg-chicken-thai-green-curry",
+    name: "Chicken Thai Green Curry",
+    price: 399,
+    category: "chinese-nonveg",
     isVeg: false,
     isSignature: true
   },
   {
-    id: "murg-ki-shole",
+    id: "chinese-nonveg-garlic-chicken",
+    name: "Garlic Chicken",
+    price: 299,
+    category: "chinese-nonveg",
+    isVeg: false
+  },
+
+  // Indian (Veg)
+  {
+    id: "indian-veg-paneer-butter-masala",
+    name: "Paneer Butter Masala",
+    price: 349,
+    category: "indian-veg",
+    isVeg: true,
+    isSignature: true,
+    isPopular: true
+  },
+  {
+    id: "indian-veg-kadhai-paneer",
+    name: "Kadhai Paneer",
+    price: 349,
+    category: "indian-veg",
+    isVeg: true,
+    isSpicy: true
+  },
+  {
+    id: "indian-veg-paneer-do-pyaza",
+    name: "Paneer Do Pyaza",
+    price: 349,
+    category: "indian-veg",
+    isVeg: true
+  },
+  {
+    id: "indian-veg-mixed-veg",
+    name: "Mixed Veg",
+    price: 349,
+    category: "indian-veg",
+    isVeg: true
+  },
+  {
+    id: "indian-veg-malai-kofta",
+    name: "Malai Kofta",
+    price: 349,
+    category: "indian-veg",
+    isVeg: true
+  },
+  {
+    id: "indian-veg-dal-makhani",
+    name: "Dal Makhani",
+    price: 299,
+    category: "indian-veg",
+    isVeg: true
+  },
+  {
+    id: "indian-veg-yellow-dal-tadka",
+    name: "Yellow Dal Tadka",
+    price: 199,
+    category: "indian-veg",
+    isVeg: true
+  },
+  {
+    id: "indian-veg-dal-fry",
+    name: "Dal Fry",
+    price: 179,
+    category: "indian-veg",
+    isVeg: true
+  },
+  {
+    id: "indian-veg-veg-jalfrezi",
+    name: "Veg Jalfrezi",
+    price: 289,
+    category: "indian-veg",
+    isVeg: true
+  },
+  {
+    id: "indian-veg-shyam-savera-kofta",
+    name: "Shyam Savera Kofta",
+    price: 339,
+    category: "indian-veg",
+    isVeg: true
+  },
+  {
+    id: "indian-veg-hyderabadi-handi",
+    name: "Hyderabadi Handi (Mix Veg)",
+    price: 379,
+    category: "indian-veg",
+    isVeg: true
+  },
+
+  // Indian (Non-Veg)
+  {
+    id: "indian-nonveg-chicken-tikka-masala",
+    name: "Chicken Tikka Masala",
+    price: 399,
+    category: "indian-nonveg",
+    isVeg: false,
+    isSpicy: true
+  },
+  {
+    id: "indian-nonveg-kadai-chicken",
+    name: "Kadai Chicken",
+    price: 399,
+    category: "indian-nonveg",
+    isVeg: false,
+    isSpicy: true
+  },
+  {
+    id: "indian-nonveg-chicken-butter-masala",
+    name: "Chicken Butter Masala",
+    price: 399,
+    category: "indian-nonveg",
+    isVeg: false,
+    isPopular: true
+  },
+  {
+    id: "indian-nonveg-fish-do-pyaza",
+    name: "Fish Do Pyaza",
+    price: 499,
+    category: "indian-nonveg",
+    isVeg: false
+  },
+  {
+    id: "indian-nonveg-prawn-malai-curry",
+    name: "Prawn Malai Curry",
+    price: 499,
+    category: "indian-nonveg",
+    isVeg: false
+  },
+  {
+    id: "indian-nonveg-mutton-kassa",
+    name: "Mutton Kassa",
+    price: 599,
+    category: "indian-nonveg",
+    isVeg: false,
+    isSignature: true,
+    isSpicy: true
+  },
+  {
+    id: "indian-nonveg-tangdi-masala-2",
+    name: "Tangdi Masala/Lababdar (2 pcs)",
+    price: 249,
+    category: "indian-nonveg",
+    isVeg: false
+  },
+  {
+    id: "indian-nonveg-tangdi-masala-4",
+    name: "Tangdi Masala/Lababdar (4 pcs)",
+    price: 399,
+    category: "indian-nonveg",
+    isVeg: false
+  },
+  {
+    id: "indian-nonveg-murgh-deewani-handi",
+    name: "Murgh Deewani Handi (4 pcs)",
+    price: 399,
+    category: "indian-nonveg",
+    isVeg: false
+  },
+  {
+    id: "indian-nonveg-chicken-bharta",
+    name: "Chicken Bharta",
+    price: 389,
+    category: "indian-nonveg",
+    isVeg: false
+  },
+  {
+    id: "indian-nonveg-chicken-do-pyaza",
+    name: "Chicken Do Pyaza",
+    price: 389,
+    category: "indian-nonveg",
+    isVeg: false
+  },
+  {
+    id: "indian-nonveg-dak-bungalow-chicken",
+    name: "Dak Bungalow Chicken",
+    price: 419,
+    category: "indian-nonveg",
+    isVeg: false
+  },
+  {
+    id: "indian-nonveg-egg-bhurji",
+    name: "Egg Bhurji (4 pcs)",
+    price: 159,
+    category: "indian-nonveg",
+    isVeg: false
+  },
+  {
+    id: "indian-nonveg-egg-curry",
+    name: "Egg Curry (2 pcs)",
+    price: 179,
+    category: "indian-nonveg",
+    isVeg: false
+  },
+
+  // Tandoor Veg
+  {
+    id: "tandoor-veg-stuffed-potato",
+    name: "Tandoori Stuffed Potato",
+    price: 199,
+    category: "tandoor-veg",
+    isVeg: true
+  },
+  {
+    id: "tandoor-veg-achari-paneer-tikka",
+    name: "Achari Paneer Tikka",
+    price: 299,
+    category: "tandoor-veg",
+    isVeg: true
+  },
+  {
+    id: "tandoor-veg-afghani-paneer-tikka",
+    name: "Afghani Paneer Tikka",
+    price: 299,
+    category: "tandoor-veg",
+    isVeg: true
+  },
+  {
+    id: "tandoor-veg-malai-broccoli",
+    name: "Malai Broccoli",
+    price: 349,
+    category: "tandoor-veg",
+    isVeg: true
+  },
+  {
+    id: "tandoor-veg-mushroom-kalemiri",
+    name: "Mushroom Kalemiri",
+    price: 349,
+    category: "tandoor-veg",
+    isVeg: true
+  },
+  {
+    id: "tandoor-veg-stuffed-paneer",
+    name: "Stuffed Paneer",
+    price: 349,
+    category: "tandoor-veg",
+    isVeg: true
+  },
+  {
+    id: "tandoor-veg-pudina-paneer-tikka",
+    name: "Pudina Paneer Tikka",
+    price: 299,
+    category: "tandoor-veg",
+    isVeg: true
+  },
+  {
+    id: "tandoor-veg-kasundi-paneer-tikka",
+    name: "Kasundi Paneer Tikka",
+    price: 259,
+    category: "tandoor-veg",
+    isVeg: true
+  },
+  {
+    id: "tandoor-veg-gilafi-seekh-kabab",
+    name: "Gilafi Seekh Kabab",
+    price: 229,
+    category: "tandoor-veg",
+    isVeg: true
+  },
+
+  // Tandoor Non-Veg
+  {
+    id: "tandoor-nonveg-tandoori-chicken-half",
+    name: "Tandoori Chicken (Half)",
+    price: 399,
+    category: "tandoor-nonveg",
+    isVeg: false
+  },
+  {
+    id: "tandoor-nonveg-tandoori-chicken-full",
+    name: "Tandoori Chicken (Full)",
+    price: 699,
+    category: "tandoor-nonveg",
+    isVeg: false
+  },
+  {
+    id: "tandoor-nonveg-murg-ki-shole",
     name: "Murg Ki Shole",
     price: 499,
-    category: "tandoor",
+    category: "tandoor-nonveg",
     isVeg: false
   },
   {
-    id: "olive-malai-chicken-tikka",
+    id: "tandoor-nonveg-olive-malai-chicken-tikka",
     name: "Olive Malai Chicken Tikka",
     price: 599,
-    category: "tandoor",
+    category: "tandoor-nonveg",
     isVeg: false
   },
   {
-    id: "fish-tikka",
+    id: "tandoor-nonveg-fish-tikka",
     name: "Fish Tikka",
     price: 599,
-    category: "tandoor",
+    category: "tandoor-nonveg",
     isVeg: false
   },
   {
-    id: "tandoori-wasabi-prawn",
+    id: "tandoor-nonveg-tandoori-wasabi-prawn",
     name: "Tandoori Wasabi Prawn",
+    description: "4 pcs",
     price: 599,
-    category: "tandoor",
+    category: "tandoor-nonveg",
     isVeg: false
   },
   {
-    id: "mutton-seekh-kebab",
-    name: "Mutton Seekh Kebab (4 pcs)",
+    id: "tandoor-nonveg-mutton-seekh-kebab",
+    name: "Mutton Seekh Kebab",
     price: 599,
-    category: "tandoor",
+    category: "tandoor-nonveg",
+    isVeg: false
+  },
+
+  // Tandoor Tikkas (Non-Veg)
+  {
+    id: "tandoor-tikkas-pudina-chicken-tikka",
+    name: "Pudina Chicken Tikka",
+    price: 349,
+    category: "tandoor-tikkas",
+    isVeg: false
+  },
+  {
+    id: "tandoor-tikkas-lasuni-chicken-tikka",
+    name: "Lasuni Chicken Tikka",
+    price: 319,
+    category: "tandoor-tikkas",
+    isVeg: false
+  },
+  {
+    id: "tandoor-tikkas-jamuni-chicken-tikka",
+    name: "Jamuni Chicken Tikka",
+    price: 329,
+    category: "tandoor-tikkas",
+    isVeg: false
+  },
+  {
+    id: "tandoor-tikkas-chicken-seekh-kabab",
+    name: "Chicken Seekh Kabab",
+    price: 359,
+    category: "tandoor-tikkas",
+    isVeg: false
+  },
+  {
+    id: "tandoor-tikkas-adaraki-chicken-tikka",
+    name: "Adaraki Chicken Tikka",
+    description: "Wings/Leg",
+    price: 339,
+    category: "tandoor-tikkas",
     isVeg: false
   },
 
   // Tandoori Bread
   {
-    id: "tandoori-roti",
+    id: "tandoori-bread-tandoori-roti",
     name: "Tandoori Roti",
     price: 69,
     category: "tandoori-bread",
     isVeg: true
   },
   {
-    id: "butter-roti",
+    id: "tandoori-bread-butter-roti",
     name: "Butter Roti",
     price: 99,
     category: "tandoori-bread",
     isVeg: true
   },
   {
-    id: "ghee-roti",
+    id: "tandoori-bread-ghee-roti",
     name: "Ghee Roti",
     price: 99,
     category: "tandoori-bread",
     isVeg: true
   },
   {
-    id: "naan",
+    id: "tandoori-bread-naan",
     name: "Naan",
     price: 89,
     category: "tandoori-bread",
     isVeg: true
   },
   {
-    id: "butter-naan",
+    id: "tandoori-bread-butter-naan",
     name: "Butter Naan",
     price: 99,
     category: "tandoori-bread",
     isVeg: true
   },
   {
-    id: "garlic-naan",
+    id: "tandoori-bread-garlic-naan",
     name: "Garlic Naan",
     price: 149,
     category: "tandoori-bread",
     isVeg: true
   },
   {
-    id: "masala-kulcha",
+    id: "tandoori-bread-masala-kulcha",
     name: "Masala Kulcha",
     price: 149,
     category: "tandoori-bread",
     isVeg: true
   },
   {
-    id: "tandoori-laccha",
+    id: "tandoori-bread-tandoori-laccha",
     name: "Tandoori Laccha",
     price: 199,
     category: "tandoori-bread",
     isVeg: true
   },
 
-  // Main Course – Chinese
+  // Noodles & Rice (Veg)
   {
-    id: "chilli-paneer-gravy",
-    name: "Chilli Paneer Gravy",
-    price: 249,
-    category: "main-course-chinese",
-    isVeg: true,
-    isSpicy: true
-  },
-  {
-    id: "sweet-sour-paneer",
-    name: "Sweet & Sour Paneer",
-    price: 249,
-    category: "main-course-chinese",
-    isVeg: true
-  },
-  {
-    id: "veg-hot-garlic-paneer",
-    name: "Veg Hot Garlic with Paneer",
-    price: 249,
-    category: "main-course-chinese",
-    isVeg: true,
-    isSpicy: true
-  },
-  {
-    id: "paneer-schezwan",
-    name: "Paneer with Schezwan",
-    price: 249,
-    category: "main-course-chinese",
-    isVeg: true,
-    isSpicy: true
-  },
-  {
-    id: "chilli-garlic-paneer",
-    name: "Chilli Garlic Paneer",
-    price: 249,
-    category: "main-course-chinese",
-    isVeg: true,
-    isSpicy: true
-  },
-  {
-    id: "chicken-hot-pot",
-    name: "Chicken Hot Pot",
-    price: 299,
-    category: "main-course-chinese",
-    isVeg: false
-  },
-  {
-    id: "schezwan-chicken-hot-pot",
-    name: "Schezwan Chicken Hot Pot",
-    price: 349,
-    category: "main-course-chinese",
-    isVeg: false,
-    isSpicy: true
-  },
-  {
-    id: "chicken-hot-garlic",
-    name: "Chicken Hot Garlic",
-    price: 399,
-    category: "main-course-chinese",
-    isVeg: false,
-    isSpicy: true
-  },
-  {
-    id: "sweet-sour-chicken",
-    name: "Sweet & Sour Chicken",
-    price: 399,
-    category: "main-course-chinese",
-    isVeg: false
-  },
-  {
-    id: "chicken-thai-green-curry",
-    name: "Chicken Thai Green Curry",
-    price: 399,
-    category: "main-course-chinese",
-    isVeg: false,
-    isSignature: true,
-    isSpicy: true
-  },
-  {
-    id: "garlic-chicken",
-    name: "Garlic Chicken",
-    price: 299,
-    category: "main-course-chinese",
-    isVeg: false
-  },
-
-  // Main Course – Indian
-  {
-    id: "paneer-butter-masala",
-    name: "Paneer Butter Masala",
-    price: 349,
-    category: "main-course-indian",
-    isVeg: true,
-    isSignature: true,
-    isPopular: true
-  },
-  {
-    id: "kadhai-paneer",
-    name: "Kadhai Paneer",
-    price: 349,
-    category: "main-course-indian",
-    isVeg: true
-  },
-  {
-    id: "paneer-do-pyaza",
-    name: "Paneer Do Pyaza",
-    price: 349,
-    category: "main-course-indian",
-    isVeg: true
-  },
-  {
-    id: "mixed-veg",
-    name: "Mixed Veg",
-    price: 349,
-    category: "main-course-indian",
-    isVeg: true
-  },
-  {
-    id: "malai-kofta",
-    name: "Malai Kofta",
-    price: 349,
-    category: "main-course-indian",
-    isVeg: true
-  },
-  {
-    id: "chicken-tikka-masala",
-    name: "Chicken Tikka Masala",
-    price: 399,
-    category: "main-course-indian",
-    isVeg: false,
-    isSpicy: true
-  },
-  {
-    id: "kadai-chicken",
-    name: "Kadai Chicken",
-    price: 399,
-    category: "main-course-indian",
-    isVeg: false,
-    isSpicy: true
-  },
-  {
-    id: "chicken-butter-masala",
-    name: "Chicken Butter Masala",
-    price: 399,
-    category: "main-course-indian",
-    isVeg: false,
-    isPopular: true
-  },
-  {
-    id: "fish-do-pyaza",
-    name: "Fish Do Pyaza",
-    price: 499,
-    category: "main-course-indian",
-    isVeg: false
-  },
-  {
-    id: "prawn-malai-curry",
-    name: "Prawn Malai Curry",
-    price: 499,
-    category: "main-course-indian",
-    isVeg: false
-  },
-  {
-    id: "mutton-kassa",
-    name: "Mutton Kassa",
-    price: 599,
-    category: "main-course-indian",
-    isVeg: false,
-    isSignature: true,
-    isSpicy: true
-  },
-
-  // Noodles & Rice
-  {
-    id: "veg-fried-rice",
+    id: "noodles-rice-veg-veg-fried-rice",
     name: "Veg Fried Rice",
     price: 249,
-    category: "noodles-rice",
-    isVeg: true,
-    isPopular: true
+    category: "noodles-rice-veg",
+    isVeg: true
   },
   {
-    id: "veg-fried-rice-paneer",
+    id: "noodles-rice-veg-veg-fried-rice-paneer",
     name: "Veg Fried Rice with Paneer",
     price: 299,
-    category: "noodles-rice",
+    category: "noodles-rice-veg",
     isVeg: true
   },
   {
-    id: "lemon-coriander-rice",
+    id: "noodles-rice-veg-lemon-coriander-rice",
     name: "Lemon Coriander Rice",
     price: 299,
-    category: "noodles-rice",
+    category: "noodles-rice-veg",
     isVeg: true
   },
   {
-    id: "veg-hakka",
+    id: "noodles-rice-veg-veg-hakka",
     name: "Veg Hakka",
     price: 299,
-    category: "noodles-rice",
+    category: "noodles-rice-veg",
     isVeg: true
   },
   {
-    id: "beans-sprouts-hakka",
+    id: "noodles-rice-veg-beans-sprouts-hakka",
     name: "Beans Sprouts with Hakka",
     price: 299,
-    category: "noodles-rice",
+    category: "noodles-rice-veg",
     isVeg: true
   },
+
+  // Noodles & Rice (Non-Veg)
   {
-    id: "stir-mushroom",
-    name: "Stir Mushroom",
-    price: 349,
-    category: "noodles-rice",
-    isVeg: true
-  },
-  {
-    id: "chicken-fried-rice",
+    id: "noodles-rice-nonveg-chicken-fried-rice",
     name: "Chicken Fried Rice",
     price: 299,
-    category: "noodles-rice",
+    category: "noodles-rice-nonveg",
     isVeg: false
   },
   {
-    id: "egg-chicken-fried-rice",
+    id: "noodles-rice-nonveg-egg-chicken-fried-rice",
     name: "Egg Chicken Fried Rice",
     price: 349,
-    category: "noodles-rice",
+    category: "noodles-rice-nonveg",
     isVeg: false
   },
   {
-    id: "mixed-fried-rice",
+    id: "noodles-rice-nonveg-mixed-fried-rice",
     name: "Mixed Fried Rice",
-    price: 399,
-    category: "noodles-rice",
+    price: 349,
+    category: "noodles-rice-nonveg",
     isVeg: false
   },
   {
-    id: "chicken-hakka",
+    id: "noodles-rice-nonveg-chicken-hakka",
     name: "Chicken Hakka",
     price: 349,
-    category: "noodles-rice",
+    category: "noodles-rice-nonveg",
     isVeg: false
   },
   {
-    id: "egg-chicken-hakka",
+    id: "noodles-rice-nonveg-egg-chicken-hakka",
     name: "Egg Chicken Hakka",
-    price: 399,
-    category: "noodles-rice",
+    price: 349,
+    category: "noodles-rice-nonveg",
     isVeg: false
   },
   {
-    id: "mixed-hakka",
+    id: "noodles-rice-nonveg-mixed-hakka",
     name: "Mixed Hakka",
     price: 449,
-    category: "noodles-rice",
+    category: "noodles-rice-nonveg",
     isVeg: false
   },
 
   // Desserts
   {
-    id: "biscoff-cheesecake",
+    id: "desserts-biscoff-cheesecake",
     name: "Biscoff Cheesecake",
     price: 399,
     category: "desserts",
     isVeg: true,
-    isSignature: true,
-    isPopular: true
+    isSignature: true
   },
   {
-    id: "blueberry-cheesecake",
-    name: "Blueberry Cheesecake",
-    price: 349,
+    id: "desserts-dryfruit-cheesecake",
+    name: "Dryfruit Cheesecake",
+    price: 450,
     category: "desserts",
     isVeg: true
   },
   {
-    id: "brownie-ice-cream",
+    id: "desserts-brownie-ice-cream",
     name: "Brownie with Ice Cream",
     price: 299,
     category: "desserts",
@@ -1475,294 +1663,301 @@ export const menuItems: MenuItem[] = [
     isPopular: true
   },
   {
-    id: "gulab-jamun-rabri",
+    id: "desserts-gulab-jamun-rabri",
     name: "Gulab Jamun with Rabri",
     price: 199,
     category: "desserts",
     isVeg: true
   },
   {
-    id: "ice-cream",
+    id: "desserts-ice-cream",
     name: "Ice Cream",
     price: 249,
     category: "desserts",
     isVeg: true
   },
 
-  // Shisha
+  // Special Item (Shisha)
   {
-    id: "regular-shisha",
+    id: "special-regular-shisha",
     name: "Regular Shisha",
     price: 599,
-    category: "shisha",
-    isVeg: true,
-    isPopular: true
+    category: "special-item",
+    isVeg: true
   },
   {
-    id: "gum-supari",
+    id: "special-gum-supari",
     name: "Gum Supari",
     price: 599,
-    category: "shisha",
+    category: "special-item",
     isVeg: true
   },
   {
-    id: "orange-rasna",
+    id: "special-orange-rasna",
     name: "Orange Rasna",
     price: 599,
-    category: "shisha",
+    category: "special-item",
     isVeg: true
   },
   {
-    id: "kiwi-spring-water",
+    id: "special-kiwi-spring-water",
     name: "Kiwi Spring Water",
     price: 599,
-    category: "shisha",
+    category: "special-item",
     isVeg: true
   },
   {
-    id: "kiwi-rasna",
+    id: "special-kiwi-rasna",
     name: "Kiwi Rasna",
     price: 599,
-    category: "shisha",
+    category: "special-item",
     isVeg: true
   },
   {
-    id: "blueberry-rasna",
+    id: "special-blueberry-rasna",
     name: "Blueberry Rasna",
     price: 599,
-    category: "shisha",
+    category: "special-item",
     isVeg: true
   },
   {
-    id: "blueberry-spring-water",
+    id: "special-blueberry-spring-water",
     name: "Blueberry Spring Water",
     price: 599,
-    category: "shisha",
+    category: "special-item",
     isVeg: true
   },
   {
-    id: "brain-freezer",
+    id: "special-brain-freezer",
     name: "Brain Freezer",
     price: 599,
-    category: "shisha",
+    category: "special-item",
     isVeg: true
   },
   {
-    id: "orange-shisha",
+    id: "special-orange",
     name: "Orange",
     price: 599,
-    category: "shisha",
+    category: "special-item",
     isVeg: true
   },
   {
-    id: "teen-paan",
+    id: "special-teen-paan",
     name: "Teen Paan",
     price: 599,
-    category: "shisha",
+    category: "special-item",
     isVeg: true
   },
   {
-    id: "blueberry-shisha",
+    id: "special-blueberry",
     name: "Blueberry",
     price: 599,
-    category: "shisha",
+    category: "special-item",
     isVeg: true
   },
   {
-    id: "gum-mint",
+    id: "special-gum-mint",
     name: "Gum Mint",
     price: 599,
-    category: "shisha",
+    category: "special-item",
     isVeg: true
   },
   {
-    id: "rasna-mint",
+    id: "special-rasna-mint",
     name: "Rasna Mint",
     price: 599,
-    category: "shisha",
+    category: "special-item",
     isVeg: true
   },
   {
-    id: "commissioner",
+    id: "special-commissioner",
     name: "Commissioner",
     price: 599,
-    category: "shisha",
+    category: "special-item",
     isVeg: true
   },
   {
-    id: "double-apple",
-    name: "Double Apple",
-    price: 599,
-    category: "shisha",
-    isVeg: true
-  },
-  {
-    id: "double-apple-mint",
-    name: "Double Apple Mint",
-    price: 599,
-    category: "shisha",
-    isVeg: true
-  },
-  {
-    id: "lemon-rasna-shisha",
-    name: "Lemon Rasna",
-    price: 599,
-    category: "shisha",
-    isVeg: true
-  },
-  {
-    id: "lemon-mint-shisha",
-    name: "Lemon Mint",
-    price: 599,
-    category: "shisha",
-    isVeg: true
-  },
-  {
-    id: "vanilla-rasna",
-    name: "Vanilla Rasna",
-    price: 599,
-    category: "shisha",
-    isVeg: true
-  },
-  {
-    id: "teen-paan-qiwam",
-    name: "Teen Paan Qiwam",
-    price: 599,
-    category: "shisha",
-    isVeg: true
-  },
-  {
-    id: "teen-paan-white",
-    name: "Teen Paan White",
-    price: 599,
-    category: "shisha",
-    isVeg: true
-  },
-  {
-    id: "rose-shisha",
-    name: "Rose",
-    price: 599,
-    category: "shisha",
-    isVeg: true
-  },
-  {
-    id: "teen-paan-rose",
-    name: "Teen Paan Rose",
-    price: 599,
-    category: "shisha",
-    isVeg: true
-  },
-  {
-    id: "love-66-guru",
-    name: "Love 66 Guru",
-    price: 599,
-    category: "shisha",
-    isVeg: true
-  },
-  {
-    id: "teen-paan-peach",
-    name: "Teen Paan Peach",
-    price: 599,
-    category: "shisha",
-    isVeg: true
-  },
-  {
-    id: "chat-pata-avenue",
-    name: "Chat Pata Avenue (Special)",
+    id: "special-chat-pata-avenue",
+    name: "Chat Pata Avenue",
     price: 799,
-    category: "shisha",
-    isVeg: true
-  },
-  {
-    id: "five-paan",
-    name: "Five Paan (Special)",
-    price: 799,
-    category: "shisha",
-    isVeg: true
-  },
-  {
-    id: "elaichi-mint",
-    name: "Elaichi Mint (Special)",
-    price: 799,
-    category: "shisha",
-    isVeg: true
-  },
-  {
-    id: "kiwi-blast",
-    name: "Kiwi Blast (Special)",
-    price: 799,
-    category: "shisha",
-    isVeg: true
-  },
-  {
-    id: "lemon-blast",
-    name: "Lemon Blast (Special)",
-    price: 799,
-    category: "shisha",
-    isVeg: true
-  },
-  {
-    id: "gum-blast",
-    name: "Gum Blast (Special)",
-    price: 799,
-    category: "shisha",
-    isVeg: true
-  },
-  {
-    id: "orange-blast",
-    name: "Orange Blast (Special)",
-    price: 799,
-    category: "shisha",
-    isVeg: true
-  },
-  {
-    id: "blueberry-blast",
-    name: "Blueberry Blast (Special)",
-    price: 799,
-    category: "shisha",
-    isVeg: true
-  },
-  {
-    id: "icy-grape-blast",
-    name: "Icy Grape Blast (Special)",
-    price: 799,
-    category: "shisha",
-    isVeg: true
-  },
-  {
-    id: "candy-special",
-    name: "Candy (Special)",
-    price: 799,
-    category: "shisha",
-    isVeg: true
-  },
-  {
-    id: "sky-avenue-special-shisha",
-    name: "Sky Avenue Special",
-    price: 799,
-    category: "shisha",
+    category: "special-item",
     isVeg: true,
     isSignature: true
   },
   {
-    id: "jumbo-base-shisha",
+    id: "special-five-paan",
+    name: "Five Paan",
+    price: 799,
+    category: "special-item",
+    isVeg: true
+  },
+  {
+    id: "special-electric-mint",
+    name: "Electric Mint",
+    price: 799,
+    category: "special-item",
+    isVeg: true
+  },
+  {
+    id: "special-energetic-mint",
+    name: "Energetic Mint",
+    price: 799,
+    category: "special-item",
+    isVeg: true
+  },
+  {
+    id: "special-kiwi-blast",
+    name: "Kiwi Blast",
+    price: 799,
+    category: "special-item",
+    isVeg: true
+  },
+  {
+    id: "special-lemon-blast",
+    name: "Lemon Blast",
+    price: 799,
+    category: "special-item",
+    isVeg: true
+  },
+  {
+    id: "special-gum-blast",
+    name: "Gum Blast",
+    price: 799,
+    category: "special-item",
+    isVeg: true
+  },
+  {
+    id: "special-orange-blast",
+    name: "Orange Blast",
+    price: 799,
+    category: "special-item",
+    isVeg: true
+  },
+  {
+    id: "special-blueberry-blast",
+    name: "Blueberry Blast",
+    price: 799,
+    category: "special-item",
+    isVeg: true
+  },
+  {
+    id: "special-icy-grape-blast",
+    name: "Icy Grape Blast",
+    price: 799,
+    category: "special-item",
+    isVeg: true
+  },
+  {
+    id: "special-candy",
+    name: "Candy",
+    price: 599,
+    category: "special-item",
+    isVeg: true
+  },
+  {
+    id: "special-sky-avenue-special",
+    name: "Sky Avenue Special",
+    price: 599,
+    category: "special-item",
+    isVeg: true,
+    isSignature: true
+  },
+  {
+    id: "special-double-apple-mint",
+    name: "Double Apple Mint",
+    price: 599,
+    category: "special-item",
+    isVeg: true
+  },
+  {
+    id: "special-double-apple",
+    name: "Double Apple",
+    price: 599,
+    category: "special-item",
+    isVeg: true
+  },
+  {
+    id: "special-lemon-rasna",
+    name: "Lemon Rasna",
+    price: 599,
+    category: "special-item",
+    isVeg: true
+  },
+  {
+    id: "special-lemon-mint",
+    name: "Lemon Mint",
+    price: 599,
+    category: "special-item",
+    isVeg: true
+  },
+  {
+    id: "special-vanilla-rasna",
+    name: "Vanilla Rasna",
+    price: 599,
+    category: "special-item",
+    isVeg: true
+  },
+  {
+    id: "special-teen-paan-qiwam",
+    name: "Teen Paan Qiwam",
+    price: 599,
+    category: "special-item",
+    isVeg: true
+  },
+  {
+    id: "special-teen-paan-white",
+    name: "Teen Paan White",
+    price: 599,
+    category: "special-item",
+    isVeg: true
+  },
+  {
+    id: "special-rose",
+    name: "Rose",
+    price: 599,
+    category: "special-item",
+    isVeg: true
+  },
+  {
+    id: "special-teen-paan-rose",
+    name: "Teen Paan Rose",
+    price: 599,
+    category: "special-item",
+    isVeg: true
+  },
+  {
+    id: "special-teen-paan-peach",
+    name: "Teen Paan Peach",
+    price: 599,
+    category: "special-item",
+    isVeg: true
+  },
+  {
+    id: "special-love-66-guru",
+    name: "Love 66 Guru",
+    price: 599,
+    category: "special-item",
+    isVeg: true
+  },
+  {
+    id: "special-jumbo-base-shisha",
     name: "Jumbo Base Shisha",
     price: 999,
-    category: "shisha",
+    category: "special-item",
     isVeg: true
   },
   {
-    id: "extra-coal",
+    id: "special-extra-coal",
     name: "Extra Coal",
     price: 50,
-    category: "shisha",
+    category: "special-item",
     isVeg: true
   },
   {
-    id: "special-base",
+    id: "special-special-base",
     name: "Special Base",
     price: 79,
-    category: "shisha",
+    category: "special-item",
     isVeg: true
   }
 ];
