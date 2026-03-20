@@ -193,28 +193,30 @@
 //   );
 // }
 
+// components/MenuPageClient.tsx
 "use client";
 
 import { useState } from "react";
-import OfferCard from "./OfferCard"; // still used in carousel
+import OfferCard from "./OfferCard";
 import MenuCard from "./MenuCard";
 import {
   menuItems,
   menuCategories,
   type MenuCategoryId
 } from "@/src/lib/menuData";
-import OffersCarousel, { type OffersCarouselItem } from "./OffersCarousel";
 
 type FilterId = "all" | "veg" | "non-veg";
 
+type OfferDisplay = {
+  id: string;
+  title: string;
+  description: string;
+  badge?: string | null;
+  endsAt?: string | null;
+};
+
 interface MenuPageClientProps {
-  offers: {
-    id: string;
-    title: string;
-    description: string;
-    badge?: string | null;
-    endsAt?: string | null;
-  }[];
+  offers: OfferDisplay[];
 }
 
 function getItemsByCategory(category: MenuCategoryId, filter: FilterId) {
@@ -227,14 +229,6 @@ function getItemsByCategory(category: MenuCategoryId, filter: FilterId) {
 export default function MenuPageClient({ offers }: MenuPageClientProps) {
   const [filter, setFilter] = useState<FilterId>("all");
 
-  const carouselOffers: OffersCarouselItem[] = offers.map((o) => ({
-    id: o.id,
-    title: o.title,
-    description: o.description,
-    badge: o.badge ?? null,
-    endsAt: o.endsAt ?? null
-  }));
-
   return (
     <div className="section section-padding">
       <header className="max-w-2xl">
@@ -246,15 +240,23 @@ export default function MenuPageClient({ offers }: MenuPageClientProps) {
         </p>
       </header>
 
-      {/* CURRENT OFFERS SECTION (now as carousel) */}
-      {carouselOffers.length > 0 && (
+      {/* CURRENT OFFERS SECTION (Dynamic from Firebase) */}
+      {offers.length > 0 && (
         <section className="mt-8">
           <h2 className="heading-3 text-2xl">Current Offers</h2>
           <p className="mt-2 text-sm text-slate-300">
             Enjoy these limited-time rooftop offers alongside our full menu.
           </p>
-          <div className="mt-4">
-            <OffersCarousel offers={carouselOffers} intervalMs={2000} />
+          <div className="mt-4 grid gap-4 md:grid-cols-2">
+            {offers.map((offer) => (
+              <OfferCard
+                key={offer.id}
+                title={offer.title}
+                description={offer.description}
+                badge={offer.badge ?? undefined}
+                endsAt={offer.endsAt ?? undefined}
+              />
+            ))}
           </div>
         </section>
       )}
