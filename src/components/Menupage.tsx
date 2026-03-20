@@ -199,8 +199,8 @@ export const dynamic = "force-dynamic";
 
 
 export default async function MenuPage() {
-  // const activeOffers = await getActiveOffers();
-  const activeOffers = await getAllOffers();
+   const activeOffers = await getActiveOffers();
+  //const activeOffers = await getAllOffers();
 
   // Convert server Date objects to plain strings for the client
   const offersForClient = activeOffers.map((o) => ({
