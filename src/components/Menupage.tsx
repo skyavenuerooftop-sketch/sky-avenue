@@ -175,20 +175,34 @@
 
 import { createMetadata } from "@/src/lib/seo";
 import { getActiveOffers } from "@/src/lib/offersFirebase";
+import { getAllOffers } from "@/src/lib/offersFirebase";
 import MenuPageClient from "@/src/components/MenuPageClient";
 
 export const metadata = createMetadata({
   title: "Menu",
   description:
     "Explore SKY AVENUE's rooftop menu: mocktails, shakes, starters, pizza, pasta, Indian, Chinese, desserts and shisha.",
-  path: "/menu"
+  path: "/menu",
+  keywords: [
+    "Sky Avenue menu",
+    "veg non-veg menu",
+    "mocktails",
+    "tandoor",
+    "pizza",
+    "pasta",
+    "rooftop restaurant menu"
+  ]
 });
 
+// Always render dynamically so it reflects latest offers
 export const dynamic = "force-dynamic";
 
-export default async function MenuPage() {
-  const activeOffers = await getActiveOffers();
 
+export default async function MenuPage() {
+  // const activeOffers = await getActiveOffers();
+  const activeOffers = await getAllOffers();
+
+  // Convert server Date objects to plain strings for the client
   const offersForClient = activeOffers.map((o) => ({
     id: o.id,
     title: o.title,
