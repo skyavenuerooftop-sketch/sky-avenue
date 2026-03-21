@@ -177,24 +177,18 @@ import { createMetadata } from "@/src/lib/seo";
 import { getActiveOffers } from "@/src/lib/offersFirebase";
 import { getAllOffers } from "@/src/lib/offersFirebase";
 import MenuPageClient from "@/src/components/MenuPageClient";
+import OffersCarousel, { type OffersCarouselItem } from "./OffersCarousel";
+
+type HeroOffer = OffersCarouselItem;
 
 export const metadata = createMetadata({
   title: "Menu",
   description:
     "Explore SKY AVENUE's rooftop menu: mocktails, shakes, starters, pizza, pasta, Indian, Chinese, desserts and shisha.",
-  path: "/menu",
-  keywords: [
-    "Sky Avenue menu",
-    "veg non-veg menu",
-    "mocktails",
-    "tandoor",
-    "pizza",
-    "pasta",
-    "rooftop restaurant menu"
-  ]
+  path: "/menu"
 });
 
-// fresh data every request
+// Ensure fresh data every request
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
