@@ -194,19 +194,17 @@ export const metadata = createMetadata({
   ]
 });
 
-// Always render dynamically so it reflects latest offers
+// fresh data every request
 export const dynamic = "force-dynamic";
-
+export const revalidate = 0;
 
 export default async function MenuPage() {
-   const activeOffers = await getActiveOffers();
-  //const activeOffers = await getAllOffers();
+  const activeOffers = await getActiveOffers();
 
-  // Convert server Date objects to plain strings for the client
   const offersForClient = activeOffers.map((o) => ({
     id: o.id,
-    title: o.title,
-    description: o.description,
+    title: o.title ?? "",
+    description: o.description ?? "",
     badge: o.badge ?? null,
     endsAt: o.endsAt ? o.endsAt.toISOString() : null
   }));
