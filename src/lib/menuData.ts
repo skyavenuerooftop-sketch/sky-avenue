@@ -1850,7 +1850,7 @@ export const menuItems: MenuItem[] = [
   {
     id: "special-candy",
     name: "Candy",
-    price: 599,
+    price: 799,
     category: "special-item",
     isVeg: true
   },
