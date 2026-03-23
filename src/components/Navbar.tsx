@@ -37,7 +37,7 @@ export default function Navbar() {
         <Link href="/" className="flex items-center gap-3">
   <div className="flex items-center gap-2">
     <Image
-  src="/skyevenuelogo.png"
+  src="/logo1.png"
   alt="SKY AVENUE Rooftop Restaurant logo"
   width={120}
   height={100}
