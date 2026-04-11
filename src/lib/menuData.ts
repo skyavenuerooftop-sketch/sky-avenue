@@ -280,28 +280,28 @@ export const menuItems: MenuItem[] = [
   {
     id: "shake-strawberry",
     name: "Strawberry Shake",
-    price: 199,
+    price: 299,
     category: "shakes",
     isVeg: true
   },
   {
     id: "shake-mango",
     name: "Mango Shake",
-    price: 199,
+    price: 299,
     category: "shakes",
     isVeg: true
   },
   {
     id: "shake-blackcurrant",
     name: "Blackcurrant Shake",
-    price: 199,
+    price: 299,
     category: "shakes",
     isVeg: true
   },
   {
     id: "shake-horchata",
     name: "Horchata Shake",
-    price: 199,
+    price: 349,
     category: "shakes",
     isVeg: true
   },
@@ -315,21 +315,28 @@ export const menuItems: MenuItem[] = [
   {
     id: "shake-pina-colada",
     name: "Pina Colada",
-    price: 199,
+    price: 349,
     category: "shakes",
     isVeg: true
   },
   {
     id: "shake-pineapple",
     name: "Pineapple Shake",
-    price: 199,
+    price: 299,
     category: "shakes",
     isVeg: true
   },
   {
     id: "shake-banana",
     name: "Banana Shake",
-    price: 199,
+    price: 299,
+    category: "shakes",
+    isVeg: true
+  },
+  {
+    id: "shake-pistachio",
+    name: "Pistachio Shake",
+    price: 399,
     category: "shakes",
     isVeg: true
   },
