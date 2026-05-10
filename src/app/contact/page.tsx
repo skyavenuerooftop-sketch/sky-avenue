@@ -75,7 +75,7 @@ export default function ContactPage() {
         </div>
 
         {/* Reservation form (API-backed) */}
-        <ContactForm/>
+        {/* <ContactForm/> */}
         {/* <ReservationForm /> */}
       </section>
 
